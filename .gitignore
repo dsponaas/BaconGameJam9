@@ -17,6 +17,11 @@ gwt-unitCache/
 www-test/
 .gwt-tmp/
 
+## Intelli JIDEA
+*.iws
+workspace.xml
+tasks.xml
+
 ## Android Studio and Intellij and Android in general
 android/libs/armeabi/
 android/libs/armeabi-v7a/
