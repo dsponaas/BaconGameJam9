@@ -29,13 +29,13 @@ public class Player extends Actor {
         super(entity);
 
         sizeX = 200f; // TODO: this is crappy
-        sizeY = 120f; // TODO: this is crappy
+        sizeY = 40f; // TODO: this is crappy
 
         float halfSizeX = sizeX / 2;
         float halfSizeY = sizeY / 2;
 
-        _leftWeapon = new PlayerWeapon(this, new Vector2(-75f + halfSizeX, 25f + halfSizeY), -1f); // TODO: need legit positionOffset
-        _rightWeapon = new PlayerWeapon(this, new Vector2(75f + halfSizeX, 25f + halfSizeY), 1f); // TODO: need legit positionOffset
+        _leftWeapon = new PlayerWeapon(this, new Vector2(-75f + halfSizeX, 10f + halfSizeY), -1f); // TODO: need legit positionOffset
+        _rightWeapon = new PlayerWeapon(this, new Vector2(75f + halfSizeX, 10f + halfSizeY), 1f); // TODO: need legit positionOffset
     }
 
     @Override
