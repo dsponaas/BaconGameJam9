@@ -1,7 +1,7 @@
 package com.grizbenzis.bgj9.actors;
 
+import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -13,6 +13,9 @@ import com.grizbenzis.bgj9.components.*;
  */
 public class EnemySub extends Actor {
 
+    private ComponentMapper<EnemyDataComponent> _enemyDataComponents = ComponentMapper.getFor(EnemyDataComponent.class);
+    private ComponentMapper<PositionComponent> _positionComponents = ComponentMapper.getFor(PositionComponent.class);
+
     private final float SHOT_TIMER_HACK = 180f;
 
     private float _shotTimer;
@@ -22,16 +25,32 @@ public class EnemySub extends Actor {
         _shotTimer = SHOT_TIMER_HACK;
     }
 
+    private final float ENEMY_OFFSCREEN_DESTROY_BUFFER = 250f;
     @Override
     public void update() {
         super.update();
 
+        PositionComponent positionComponent = _positionComponents.get(getEntity());
+        if(positionComponent.y < (-1f * ENEMY_OFFSCREEN_DESTROY_BUFFER)) {
+            EntityManager.getInstance().destroyEntity(getEntity());
+            EntityManager.getInstance().removeActor(this);
+        }
+        else if(positionComponent.x < (-1f * ENEMY_OFFSCREEN_DESTROY_BUFFER)) {
+            EntityManager.getInstance().destroyEntity(getEntity());
+            EntityManager.getInstance().removeActor(this);
+        }
+        else if(positionComponent.x > (GameBoardInfo.getInstance().getWidth() + ENEMY_OFFSCREEN_DESTROY_BUFFER)) {
+            EntityManager.getInstance().destroyEntity(getEntity());
+            EntityManager.getInstance().removeActor(this);
+        }
+
+        if(null == _enemyDataComponents.get(getEntity()))
+            return;
         _shotTimer -= (float)Time.time;
         if(_shotTimer < 0f) {
             _shotTimer = SHOT_TIMER_HACK;
             fire();
         }
-
     }
 
     public static Entity makeEnemyEntity(float xPos, float yPos, float xVel) {
