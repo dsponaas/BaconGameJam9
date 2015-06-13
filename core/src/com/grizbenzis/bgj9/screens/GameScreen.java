@@ -7,8 +7,10 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -161,7 +163,12 @@ public class GameScreen implements Screen {
     private void renderHud() {
         Hud hud = Hud.getInstance();
 
-        
+        BitmapFont hudFont = hud.getFont();
+
+        _hudBatch.begin();
+        float scoreIconXPos = ((float)Gdx.graphics.getWidth()) / 6f + ((float)Gdx.graphics.getWidth()) / 2f;
+        hudFont.draw( _hudBatch, "SCORE: " + 0, scoreIconXPos, (float)Gdx.graphics.getHeight() - 4f ); // TODO: actually show the score
+        _hudBatch.end();
     }
 
     private Engine initializeEngine() {
