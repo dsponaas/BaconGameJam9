@@ -1,19 +1,26 @@
 package com.grizbenzis.bgj9.screens;
 
 import com.badlogic.ashley.core.Engine;
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.grizbenzis.bgj9.Constants;
-import com.grizbenzis.bgj9.EntityManager;
-import com.grizbenzis.bgj9.Time;
-import com.grizbenzis.bgj9.bgj9;
+import com.grizbenzis.bgj9.*;
+import com.grizbenzis.bgj9.actors.Actor;
+import com.grizbenzis.bgj9.actors.Player;
+import com.grizbenzis.bgj9.components.BodyComponent;
+import com.grizbenzis.bgj9.components.PositionComponent;
+import com.grizbenzis.bgj9.components.RenderComponent;
+import com.grizbenzis.bgj9.components.SpriteComponent;
 import com.grizbenzis.bgj9.systems.PositionSystem;
 import com.grizbenzis.bgj9.systems.RenderSystem;
 
@@ -27,8 +34,12 @@ public class GameScreen implements Screen {
     private OrthographicCamera _camera;
     private World _world;
 
+    private Actor playerActor;
+
     private int _screenWidth, _screenHeight;
     private SpriteBatch _spriteBatch;
+
+    private InputManager _inputManager;
 
     private Box2DDebugRenderer _debugRenderer;
 
@@ -44,7 +55,7 @@ public class GameScreen implements Screen {
         _engine = initializeEngine();
 
         _world = new World(new Vector2(0f, 0f), false);
-//        BodyFactory.initialize(_world);
+        BodyFactory.initialize(_world);
 
         _screenWidth = Gdx.graphics.getWidth();
         _screenHeight = Gdx.graphics.getHeight();
@@ -55,6 +66,31 @@ public class GameScreen implements Screen {
 
         EntityManager.initialize(_engine, _world);
 
+        Entity playerEntity = makePlayerHack();
+        EntityManager.getInstance().addEntity(playerEntity);
+        playerActor = new Player(playerEntity);
+
+        _inputManager = new InputManager();
+        InputMultiplexer inputMultiplexer = new InputMultiplexer();
+        inputMultiplexer.addProcessor(_inputManager);
+        Gdx.input.setInputProcessor(inputMultiplexer);
+    }
+
+    private Entity makePlayerHack() {
+        Entity entity = new Entity();
+
+        Sprite sprite = new Sprite(ResourceManager.getTexture("player"));
+        Vector2 position = new Vector2(4f * Constants.METERS_TO_PIXELS, 4f * Constants.METERS_TO_PIXELS);
+
+        Body body = BodyFactory.getInstance().generate(entity, "player.json", position);
+
+        PositionComponent playerPositionComponent = new PositionComponent(position.x, position.y);
+        BodyComponent playerBodyComponent = new BodyComponent(playerPositionComponent, body);
+        SpriteComponent playerRenderComponent = new SpriteComponent(sprite);
+        RenderComponent renderComponent = new RenderComponent(0);
+
+        entity.add(playerPositionComponent).add(playerBodyComponent).add(playerRenderComponent).add(renderComponent);
+        return entity;
     }
 
     @Override
@@ -79,7 +115,9 @@ public class GameScreen implements Screen {
         _spriteBatch.setProjectionMatrix(_camera.combined);
         _spriteBatch.end();
 
+        playerActor.update(); // TODO: here for current convenince. roll into entitymanager or omsehitng?
         EntityManager.getInstance().update();
+        _debugRenderer.render(_world, debugMatrix);
     }
 
     @Override

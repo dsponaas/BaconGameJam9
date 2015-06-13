@@ -19,6 +19,7 @@ public class Constants {
     //****************************************************************************
     public static final float BASE_PLAYER_ACCEL = 1.0f;
     public static final float BASE_PLAYER_MAXSPEED = 5.0f;
+    public static final float SURFACE_FRICTION = 0.5f;
 
     //****************************************************************************
     //*********** Box2D Bitmasks *************************************************

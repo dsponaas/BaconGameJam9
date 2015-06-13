@@ -15,6 +15,7 @@ public class ResourceManager {
         _textures = new HashMap<String, Texture>();
 
         _textures.put("startButton", new Texture("badlogic.jpg"));
+        _textures.put("player", new Texture("player.png"));
     }
 
     public static Texture getTexture(String name) {
