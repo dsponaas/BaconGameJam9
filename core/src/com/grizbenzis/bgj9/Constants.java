@@ -43,5 +43,6 @@ public class Constants {
     public static final float SHOOTING_COOLDOWN_TIMER = 60f;
     public static final float SHOOTING_CHARGE_UP_TIME = 60f;
     public static final float SHOOTING_OVERCHARGE_TIME = 60f;
+    public static final float DEPTH_CHARGE_EXPLOSION_DURATION = 30f;
 
 }
