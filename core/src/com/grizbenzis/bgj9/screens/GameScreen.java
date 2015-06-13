@@ -39,6 +39,7 @@ public class GameScreen implements Screen {
 
     private int _screenWidth, _screenHeight;
     private SpriteBatch _spriteBatch;
+    private SpriteBatch _hudBatch;
 
     private InputManager _inputManager;
 
@@ -51,6 +52,7 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         _spriteBatch = new SpriteBatch();
+        _hudBatch = new SpriteBatch();
         _debugRenderer = new Box2DDebugRenderer();
 
         _engine = initializeEngine();
@@ -115,6 +117,8 @@ public class GameScreen implements Screen {
         playerActor.update(); // TODO: here for current convenince. roll into entitymanager or omsehitng?
         EntityManager.getInstance().update();
         _debugRenderer.render(_world, debugMatrix);
+
+        renderHud();
     }
 
     @Override
@@ -150,7 +154,13 @@ public class GameScreen implements Screen {
     public void dispose() {
         _world.dispose();
         _spriteBatch.dispose();
+        _hudBatch.dispose();
+    }
 
+    private void renderHud() {
+        Hud hud = Hud.getInstance();
+
+        
     }
 
     private Engine initializeEngine() {
