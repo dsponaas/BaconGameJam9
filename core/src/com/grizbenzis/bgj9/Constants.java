@@ -7,6 +7,7 @@ public class Constants {
 
     public static final int TARGET_FPS = 60;
     public static final String LOG_TAG = "bgj9";
+    public static final float GRAVITY = -8f;
 
     //****************************************************************************
     //*********** World Scale ****************************************************
@@ -24,12 +25,17 @@ public class Constants {
     //****************************************************************************
     //*********** Box2D Bitmasks *************************************************
     //****************************************************************************
-    public final static short   BITMASK_PLAYER = 0x0001;
-    public final static short   BITMASK_ENEMY = 0x0002;
-    public final static short   BITMASK_LEVEL_BOUNDS = 0x0004;
-    public final static short   BITMASK_LOOT = 0x0008;
-    public final static short   BITMASK_PLAYER_BULLET = 0x0010;
-    public final static short   BITMASK_ENEMY_BULLET = 0x0020;
-    public final static short   BITMASK_ENVIRONMENT = 0x0040;
+    public static final short   BITMASK_PLAYER = 0x0001;
+    public static final short   BITMASK_ENEMY = 0x0002;
+    public static final short   BITMASK_LEVEL_BOUNDS = 0x0004;
+    public static final short   BITMASK_LOOT = 0x0008;
+    public static final short   BITMASK_PLAYER_BULLET = 0x0010;
+    public static final short   BITMASK_ENEMY_BULLET = 0x0020;
+    public static final short   BITMASK_ENVIRONMENT = 0x0040;
+
+    //****************************************************************************
+    //*********** Player Actions *************************************************
+    //****************************************************************************
+    public static final float SHOOTING_COOLDOWN_TIMER = 60f;
 
 }
