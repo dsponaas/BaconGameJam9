@@ -1,0 +1,83 @@
+
+Sub-Destroy.png
+size: 1024,256
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+sub destroyed 01
+  rotate: false
+  xy: 2, 134
+  size: 200, 64
+  orig: 200, 64
+  offset: 0, 0
+  index: -1
+sub destroyed 02
+  rotate: false
+  xy: 2, 68
+  size: 200, 64
+  orig: 200, 64
+  offset: 0, 0
+  index: -1
+sub destroyed 03
+  rotate: false
+  xy: 204, 134
+  size: 200, 64
+  orig: 200, 64
+  offset: 0, 0
+  index: -1
+sub destroyed 04
+  rotate: false
+  xy: 2, 2
+  size: 200, 64
+  orig: 200, 64
+  offset: 0, 0
+  index: -1
+sub destroyed 05
+  rotate: false
+  xy: 204, 68
+  size: 200, 64
+  orig: 200, 64
+  offset: 0, 0
+  index: -1
+sub destroyed 06
+  rotate: false
+  xy: 406, 134
+  size: 200, 64
+  orig: 200, 64
+  offset: 0, 0
+  index: -1
+sub destroyed 07
+  rotate: false
+  xy: 204, 2
+  size: 200, 64
+  orig: 200, 64
+  offset: 0, 0
+  index: -1
+sub destroyed 08
+  rotate: false
+  xy: 406, 68
+  size: 200, 64
+  orig: 200, 64
+  offset: 0, 0
+  index: -1
+sub destroyed 09
+  rotate: false
+  xy: 608, 134
+  size: 200, 64
+  orig: 200, 64
+  offset: 0, 0
+  index: -1
+sub destroyed 10
+  rotate: false
+  xy: 406, 2
+  size: 200, 64
+  orig: 200, 64
+  offset: 0, 0
+  index: -1
+sub destroyed 11
+  rotate: false
+  xy: 608, 68
+  size: 200, 64
+  orig: 200, 64
+  offset: 0, 0
+  index: -1
