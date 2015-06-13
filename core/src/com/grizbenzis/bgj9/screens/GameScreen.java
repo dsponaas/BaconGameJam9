@@ -166,7 +166,7 @@ public class GameScreen implements Screen {
         BitmapFont hudFont = hud.getFont();
 
         _hudBatch.begin();
-        float scoreIconXPos = ((float)Gdx.graphics.getWidth()) / 6f + ((float)Gdx.graphics.getWidth()) / 2f;
+        float scoreIconXPos = 4f; // lil bit of padding here...
         hudFont.draw( _hudBatch, "SCORE: " + 0, scoreIconXPos, (float)Gdx.graphics.getHeight() - 4f ); // TODO: actually show the score
         _hudBatch.end();
     }
