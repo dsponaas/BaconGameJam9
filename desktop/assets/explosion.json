@@ -1,15 +1,16 @@
 {
   BodyDef : {
     fixedRotation: true,
-    type: DynamicBody,
+    type: StaticBody,
     gravityScale: 0,
-    collisionType: PLAYER_BULLET,
+    collisionType: EXPLOSION,
     dimensionX: 50,
     dimensionY: 50
   },
   Fixtures : [
     {
       description: none,
+      isSensor: true,
       type: CircleShape,
       radius: 50,
       density: 1,

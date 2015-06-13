@@ -26,12 +26,16 @@ public class GameBoardInfo {
     private float _waterLevel;
     public float getWaterLevel()    { return _waterLevel; }
 
+    private int _score;
+    public int getScore()         { return _score; }
+
     private GameBoardInfo(float width, float height) {
         _gameBoardWidth = width;
         _gameBoardHeight = height;
         _waterLevel = _gameBoardHeight - Constants.SKY_HEIGHT_IN_PIXELS;
         _enemySpawnTimer = ENEMY_SPAWN_TIMER_HACK;
         _rand = new Random();
+        _score = 0;
     }
 
     public static void initialize(float width, float height) {
@@ -67,6 +71,10 @@ public class GameBoardInfo {
 
     private float getRandomFloat(float start, float end) {
         return start + ((end - start) * _rand.nextFloat());
+    }
+
+    public void incrementScore(int val) {
+        _score += val;
     }
 
 }

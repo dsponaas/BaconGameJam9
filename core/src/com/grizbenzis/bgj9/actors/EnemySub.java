@@ -6,10 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.grizbenzis.bgj9.BodyFactory;
 import com.grizbenzis.bgj9.ResourceManager;
-import com.grizbenzis.bgj9.components.BodyComponent;
-import com.grizbenzis.bgj9.components.PositionComponent;
-import com.grizbenzis.bgj9.components.RenderComponent;
-import com.grizbenzis.bgj9.components.SpriteComponent;
+import com.grizbenzis.bgj9.components.*;
 
 /**
  * Created by sponaas on 6/13/15.
@@ -37,8 +34,9 @@ public class EnemySub extends Actor {
         BodyComponent bodyComponent = new BodyComponent(positionComponent, body);
         SpriteComponent spriteComponent = new SpriteComponent(sprite);
         RenderComponent renderComponent = new RenderComponent(0);
+        EnemyDataComponent enemyDataComponent = new EnemyDataComponent(10);
 
-        entity.add(positionComponent).add(bodyComponent).add(spriteComponent).add(renderComponent);
+        entity.add(positionComponent).add(bodyComponent).add(spriteComponent).add(renderComponent).add(enemyDataComponent);
 
         float mass = body.getMass();
 //        Vector2 impulse = new Vector2(direction * mass, 2f);

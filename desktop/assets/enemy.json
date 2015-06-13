@@ -3,13 +3,14 @@
     fixedRotation: true,
     type: DynamicBody,
     gravityScale: 0,
-    collisionType: PLAYER,
+    collisionType: ENEMY,
     dimensionX: 100,
     dimensionY: 20
   },
   Fixtures : [
     {
       description: none,
+      isSensor: false,
       type: RectangleShape,
       width: 100,
       height: 20,
