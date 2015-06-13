@@ -3,10 +3,13 @@ package com.grizbenzis.bgj9;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.grizbenzis.bgj9.components.BodyComponent;
-import com.grizbenzis.bgj9.components.EnemyDataComponent;
+import com.grizbenzis.bgj9.components.*;
+
+import javax.swing.text.Position;
 
 /**
  * Created by sponaas on 6/13/15.
@@ -44,6 +47,16 @@ public class ContactManager implements ContactListener {
             EnemyDataComponent enemyDataComponent = (EnemyDataComponent)entityA.remove(EnemyDataComponent.class);
             if(null != enemyDataComponent)
                 collideExplosionAndEnemy(fixtureA, bodyA, enemyDataComponent);
+        }
+
+        // *************************************** ENEMYBULLET <=> LEVELBOUNDS ********************************
+        else if((Constants.BITMASK_ENEMY_BULLET == fixtureAType) && (Constants.BITMASK_WATER_SURFACE== fixtureBType)) {
+            BulletComponent bulletComponent = entityA.getComponent(BulletComponent.class);
+            bulletComponent.detonate = true;
+        }
+        else if((Constants.BITMASK_ENEMY_BULLET == fixtureBType) && (Constants.BITMASK_WATER_SURFACE == fixtureAType)) {
+            BulletComponent bulletComponent = entityB.getComponent(BulletComponent.class);
+            bulletComponent.detonate = true;
         }
     }
 

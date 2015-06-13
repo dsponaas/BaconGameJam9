@@ -1,11 +1,11 @@
 package com.grizbenzis.bgj9.actors;
 
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.grizbenzis.bgj9.BodyFactory;
-import com.grizbenzis.bgj9.ResourceManager;
+import com.grizbenzis.bgj9.*;
 import com.grizbenzis.bgj9.components.*;
 
 /**
@@ -13,13 +13,25 @@ import com.grizbenzis.bgj9.components.*;
  */
 public class EnemySub extends Actor {
 
+    private final float SHOT_TIMER_HACK = 180f;
+
+    private float _shotTimer;
+
     public EnemySub(Entity entity) {
         super(entity);
+        _shotTimer = SHOT_TIMER_HACK;
     }
 
     @Override
     public void update() {
         super.update();
+
+        _shotTimer -= (float)Time.time;
+        if(_shotTimer < 0f) {
+            _shotTimer = SHOT_TIMER_HACK;
+            fire();
+        }
+
     }
 
     public static Entity makeEnemyEntity(float xPos, float yPos, float xVel) {
@@ -45,6 +57,31 @@ public class EnemySub extends Actor {
         body.applyLinearImpulse(impulse.x, impulse.y, body.getWorldCenter().x, body.getWorldCenter().y, true);
 
         return entity;
+    }
+
+    private final float SHOT_SPEED_HACK = 5f;
+
+    private void fire() {
+        Entity bulletEntity = new Entity();
+        SpriteComponent bulletSprite = new SpriteComponent(new Sprite(ResourceManager.getTexture("bullet")));
+        Vector2 pos = new Vector2(getPosition().x, getPosition().y);
+
+        PositionComponent bulletPosition = new PositionComponent(pos.x, pos.y);
+        Body body = BodyFactory.getInstance().generate(bulletEntity, "enemybullet.json", new Vector2(pos.x, pos.y));
+        BodyComponent bulletBody = new BodyComponent(bulletPosition, body);
+        RenderComponent renderComponent = new RenderComponent(0);
+        BulletComponent bulletComponent = new BulletComponent();
+
+        bulletEntity.add(bulletSprite).add(bulletPosition).add(bulletBody).add(renderComponent).add(bulletComponent);
+        EntityManager.getInstance().addEntity(bulletEntity);
+
+        float mass = body.getMass();
+        Vector2 shotDirection = GameBoardInfo.getInstance().getPlayer().getCenterPos().sub(pos).nor().scl(SHOT_SPEED_HACK);
+
+//        Vector2 impulse = new Vector2(direction * mass, 2f);
+        Vector2 impulse = new Vector2(shotDirection.x * mass, shotDirection.y * mass);
+//        Gdx.app.log(Constants.LOG_TAG, "ximpulse:" + impulse.x + "  yimpulse:" + impulse.y);
+        body.applyLinearImpulse(impulse.x, impulse.y, body.getWorldCenter().x, body.getWorldCenter().y, true);
     }
 
 }

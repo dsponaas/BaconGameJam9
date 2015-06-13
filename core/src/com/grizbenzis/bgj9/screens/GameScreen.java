@@ -21,10 +21,7 @@ import com.grizbenzis.bgj9.components.BodyComponent;
 import com.grizbenzis.bgj9.components.PositionComponent;
 import com.grizbenzis.bgj9.components.RenderComponent;
 import com.grizbenzis.bgj9.components.SpriteComponent;
-import com.grizbenzis.bgj9.systems.DepthChargeSystem;
-import com.grizbenzis.bgj9.systems.ExplosionSystem;
-import com.grizbenzis.bgj9.systems.PositionSystem;
-import com.grizbenzis.bgj9.systems.RenderSystem;
+import com.grizbenzis.bgj9.systems.*;
 
 /**
  * Created by sponaas on 6/12/15.
@@ -114,10 +111,17 @@ public class GameScreen implements Screen {
 
         Entity playerEntity = Player.makePlayerEntity();
         EntityManager.getInstance().addEntity(playerEntity);
-        EntityManager.getInstance().addActor(new Player(playerEntity));
+        Player player = new Player(playerEntity);
+        EntityManager.getInstance().addActor(player);
+        GameBoardInfo.getInstance().setPlayer(player);
 
-        addEdgeShape(0f, 0f, 0f, height * Constants.PIXELS_TO_METERS);
-        addEdgeShape(width * Constants.PIXELS_TO_METERS, 0f, width * Constants.PIXELS_TO_METERS, height * Constants.PIXELS_TO_METERS);
+        addLevelBounds(0f, 0f, 0f, height * Constants.PIXELS_TO_METERS);
+        addLevelBounds(width * Constants.PIXELS_TO_METERS, 0f, width * Constants.PIXELS_TO_METERS, height * Constants.PIXELS_TO_METERS);
+
+        addWaterSurface(0f,
+                (height - Constants.SKY_HEIGHT_IN_PIXELS) * Constants.PIXELS_TO_METERS,
+                (width) * Constants.PIXELS_TO_METERS,
+                (height - Constants.SKY_HEIGHT_IN_PIXELS) * Constants.PIXELS_TO_METERS);
 
         _camera.setToOrtho(false, _screenWidth, _screenHeight);
         _camera.update();
@@ -152,7 +156,9 @@ public class GameScreen implements Screen {
 
         _hudBatch.begin();
         float scoreIconXPos = 4f; // lil bit of padding here...
-        hudFont.draw(_hudBatch, "SCORE: " + GameBoardInfo.getInstance().getScore(), scoreIconXPos, (float) Gdx.graphics.getHeight() - 4f); // TODO: actually show the score
+        int level = GameBoardInfo.getInstance().getLevel();
+        int score = GameBoardInfo.getInstance().getScore();
+        hudFont.draw(_hudBatch, "LEVEL: " + level + "   SCORE: " + score, scoreIconXPos, (float) Gdx.graphics.getHeight() - 4f); // TODO: actually show the score
         _hudBatch.end();
     }
 
@@ -162,17 +168,19 @@ public class GameScreen implements Screen {
         PositionSystem positionSystem = new PositionSystem(0);
         RenderSystem renderSystem = new RenderSystem(_spriteBatch, 1);
         DepthChargeSystem depthChargeSystem = new DepthChargeSystem(2);
-        ExplosionSystem explosionSystem = new ExplosionSystem(3);
+        BulletSystem bulletSystem = new BulletSystem(3);
+        ExplosionSystem explosionSystem = new ExplosionSystem(4);
 
         engine.addSystem(positionSystem);
         engine.addSystem(renderSystem);
         engine.addSystem(depthChargeSystem);
+        engine.addSystem(bulletSystem);
         engine.addSystem(explosionSystem);
 
         return engine;
     }
 
-    private void addEdgeShape(float x1, float y1, float x2, float y2) {
+    private void addLevelBounds(float x1, float y1, float x2, float y2) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
         bodyDef.position.set(0f, 0f);
@@ -180,6 +188,25 @@ public class GameScreen implements Screen {
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.filter.categoryBits = Constants.BITMASK_LEVEL_BOUNDS;
         fixtureDef.filter.maskBits = Constants.BITMASK_PLAYER | Constants.BITMASK_PLAYER_BULLET | Constants.BITMASK_ENEMY_BULLET;
+
+        EdgeShape shape = new EdgeShape();
+        shape.set(x1, y1, x2, y2);
+        fixtureDef.shape = shape;
+        fixtureDef.friction = 0f;
+
+        Body body = _world.createBody(bodyDef);
+        body.createFixture(fixtureDef);
+        shape.dispose();
+    }
+
+    private void addWaterSurface(float x1, float y1, float x2, float y2) {
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.StaticBody;
+        bodyDef.position.set(0f, 0f);
+
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.filter.categoryBits = Constants.BITMASK_WATER_SURFACE;
+        fixtureDef.filter.maskBits = Constants.BITMASK_ENEMY_BULLET;
 
         EdgeShape shape = new EdgeShape();
         shape.set(x1, y1, x2, y2);

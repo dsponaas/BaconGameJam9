@@ -22,6 +22,7 @@ public class DepthChargeSystem extends IteratingSystem {
 
     private ComponentMapper<DepthChargeComponent> _depthChargeComponents = ComponentMapper.getFor(DepthChargeComponent.class);
     private ComponentMapper<PositionComponent> _positionComponents = ComponentMapper.getFor(PositionComponent.class);
+    private ComponentMapper<BulletComponent> _bulletComponents = ComponentMapper.getFor(BulletComponent.class);
 
     public DepthChargeSystem(int priority) {
         super(Family.all(DepthChargeComponent.class, PositionComponent.class).get(), priority);
@@ -39,14 +40,16 @@ public class DepthChargeSystem extends IteratingSystem {
         float detonationDepth = minDepth - (depthChargeComponent.depth * deltaDepth);
         float curDepth = positionComponent.y;
         if(curDepth < detonationDepth) {
-            EntityManager.getInstance().destroyEntity(entity);
+            BulletComponent bulletComponent = _bulletComponents.get(entity);
+            bulletComponent.detonate = true;
 //            Gdx.app.log(Constants.LOG_TAG, "detonating");
-            makeExplosion(positionComponent.x, positionComponent.y);
+//            makeExplosion(positionComponent.x, positionComponent.y);
 
         }
     }
-
+/*
     private void makeExplosion(float x, float y) {
+
         Entity explosionEntity = new Entity();
         SpriteComponent bulletSprite = new SpriteComponent(new Sprite(new Texture("explosion.png")));
 
@@ -59,4 +62,5 @@ public class DepthChargeSystem extends IteratingSystem {
         explosionEntity.add(bulletSprite).add(positionComponent).add(bodyComponent).add(renderComponent).add(explosionComponent);
         EntityManager.getInstance().addEntity(explosionEntity);
     }
+    */
 }

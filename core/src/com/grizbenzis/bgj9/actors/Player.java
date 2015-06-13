@@ -9,10 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.grizbenzis.bgj9.*;
-import com.grizbenzis.bgj9.components.BodyComponent;
-import com.grizbenzis.bgj9.components.PositionComponent;
-import com.grizbenzis.bgj9.components.RenderComponent;
-import com.grizbenzis.bgj9.components.SpriteComponent;
+import com.grizbenzis.bgj9.components.*;
 
 /**
  * Created by sponaas on 6/12/15.
@@ -42,7 +39,7 @@ public class Player extends Actor {
         Entity entity = new Entity();
 
         Sprite sprite = new Sprite(ResourceManager.getTexture("player"));
-        Vector2 position = new Vector2(4f * Constants.METERS_TO_PIXELS, GameBoardInfo.getInstance().getWaterLevel());
+        Vector2 position = new Vector2(GameBoardInfo.getInstance().getWidth() / 2, GameBoardInfo.getInstance().getWaterLevel() + (sprite.getHeight() / 2));
 
         Body body = BodyFactory.getInstance().generate(entity, "player.json", position);
 
@@ -93,6 +90,13 @@ public class Player extends Actor {
         float mass = getBody().getMass();
         float impulse = deltaVelocity * mass;
         getBody().applyLinearImpulse(impulse, 0, getBody().getWorldCenter().x, getBody().getWorldCenter().y, true);
+    }
+
+    public Vector2 getCenterPos() {
+        float halfSizeX = sizeX / 2;
+        float halfSizeY = sizeY / 2;
+        PositionComponent positionComponent = getPosition();
+        return new Vector2(positionComponent.x + halfSizeX, positionComponent.y + halfSizeY);
     }
 
 }
