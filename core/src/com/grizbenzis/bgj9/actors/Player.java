@@ -22,11 +22,20 @@ public class Player extends Actor {
     private PlayerWeapon _leftWeapon;
     private PlayerWeapon _rightWeapon;
 
+    private float sizeX;
+    private float sizeY;
+
     public Player(Entity entity) {
         super(entity);
 
-        _leftWeapon = new PlayerWeapon(this, new Vector2(0f, 0f), -1f); // TODO: need legit positionOffset
-        _rightWeapon = new PlayerWeapon(this, new Vector2(0f, 0f), 1f); // TODO: need legit positionOffset
+        sizeX = 200f; // TODO: this is crappy
+        sizeY = 120f; // TODO: this is crappy
+
+        float halfSizeX = sizeX / 2;
+        float halfSizeY = sizeY / 2;
+
+        _leftWeapon = new PlayerWeapon(this, new Vector2(-75f + halfSizeX, 25f + halfSizeY), -1f); // TODO: need legit positionOffset
+        _rightWeapon = new PlayerWeapon(this, new Vector2(75f + halfSizeX, 25f + halfSizeY), 1f); // TODO: need legit positionOffset
     }
 
     @Override

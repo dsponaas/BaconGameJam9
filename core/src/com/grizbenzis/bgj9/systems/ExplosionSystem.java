@@ -1,0 +1,30 @@
+package com.grizbenzis.bgj9.systems;
+
+import com.badlogic.ashley.core.ComponentMapper;
+import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.Family;
+import com.badlogic.ashley.systems.IteratingSystem;
+import com.grizbenzis.bgj9.EntityManager;
+import com.grizbenzis.bgj9.Time;
+import com.grizbenzis.bgj9.components.ExplosionComponent;
+import com.grizbenzis.bgj9.components.PositionComponent;
+
+/**
+ * Created by sponaas on 6/13/15.
+ */
+public class ExplosionSystem extends IteratingSystem {
+
+    private ComponentMapper<ExplosionComponent> _explosionComponents = ComponentMapper.getFor(ExplosionComponent.class);
+
+    public ExplosionSystem(int priority) {
+        super(Family.all(ExplosionComponent.class).get(), priority);
+    }
+
+    @Override
+    protected void processEntity(Entity entity, float deltaTime) {
+        ExplosionComponent explosion = _explosionComponents.get(entity);
+        explosion.timeLeft -= (float) Time.time;
+        if(explosion.timeLeft < 0f)
+            EntityManager.getInstance().destroyEntity(entity);
+    }
+}
