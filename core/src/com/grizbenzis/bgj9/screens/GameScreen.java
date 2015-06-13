@@ -13,9 +13,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.*;
 import com.grizbenzis.bgj9.*;
 import com.grizbenzis.bgj9.actors.Actor;
 import com.grizbenzis.bgj9.actors.Player;
@@ -37,6 +35,7 @@ public class GameScreen implements Screen {
     private Engine _engine;
     private OrthographicCamera _camera;
     private World _world;
+    private ContactManager _contactManager;
 
     private int _screenWidth, _screenHeight;
     private SpriteBatch _spriteBatch;
@@ -60,6 +59,7 @@ public class GameScreen implements Screen {
 
         _world = new World(new Vector2(0f, Constants.GRAVITY), false);
         BodyFactory.initialize(_world);
+        _contactManager = new ContactManager(_engine, _world);
 
         _screenWidth = Gdx.graphics.getWidth();
         _screenHeight = Gdx.graphics.getHeight();
@@ -96,7 +96,7 @@ public class GameScreen implements Screen {
         GameBoardInfo.getInstance().update();
 
         _spriteBatch.begin();
-        _engine.update((float)Time.time);
+        _engine.update((float) Time.time);
         _spriteBatch.setProjectionMatrix(_camera.combined);
         _spriteBatch.end();
 
@@ -115,6 +115,9 @@ public class GameScreen implements Screen {
         Entity playerEntity = Player.makePlayerEntity();
         EntityManager.getInstance().addEntity(playerEntity);
         EntityManager.getInstance().addActor(new Player(playerEntity));
+
+        addEdgeShape(0f, 0f, 0f, height * Constants.PIXELS_TO_METERS);
+        addEdgeShape(width * Constants.PIXELS_TO_METERS, 0f, width * Constants.PIXELS_TO_METERS, height * Constants.PIXELS_TO_METERS);
 
         _camera.setToOrtho(false, _screenWidth, _screenHeight);
         _camera.update();
@@ -149,7 +152,7 @@ public class GameScreen implements Screen {
 
         _hudBatch.begin();
         float scoreIconXPos = 4f; // lil bit of padding here...
-        hudFont.draw( _hudBatch, "SCORE: " + 0, scoreIconXPos, (float)Gdx.graphics.getHeight() - 4f ); // TODO: actually show the score
+        hudFont.draw(_hudBatch, "SCORE: " + 0, scoreIconXPos, (float) Gdx.graphics.getHeight() - 4f); // TODO: actually show the score
         _hudBatch.end();
     }
 
@@ -167,5 +170,24 @@ public class GameScreen implements Screen {
         engine.addSystem(explosionSystem);
 
         return engine;
+    }
+
+    private void addEdgeShape(float x1, float y1, float x2, float y2) {
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.StaticBody;
+        bodyDef.position.set(0f, 0f);
+
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.filter.categoryBits = Constants.BITMASK_LEVEL_BOUNDS;
+        fixtureDef.filter.maskBits = Constants.BITMASK_PLAYER | Constants.BITMASK_PLAYER_BULLET | Constants.BITMASK_ENEMY_BULLET;
+
+        EdgeShape shape = new EdgeShape();
+        shape.set(x1, y1, x2, y2);
+        fixtureDef.shape = shape;
+        fixtureDef.friction = 0f;
+
+        Body body = _world.createBody(bodyDef);
+        body.createFixture(fixtureDef);
+        shape.dispose();
     }
 }

@@ -43,8 +43,8 @@ public class BodyFactory {
             categoryBits = Constants.BITMASK_PLAYER;
         else if (collisionType.equalsIgnoreCase("ENEMY"))
             categoryBits = Constants.BITMASK_ENEMY;
-        else if (collisionType.equalsIgnoreCase("ENVIRONMENT"))
-            categoryBits = Constants.BITMASK_ENVIRONMENT;
+        else if (collisionType.equalsIgnoreCase("EXPLOSION"))
+            categoryBits = Constants.BITMASK_EXPLOSION;
         else if (collisionType.equalsIgnoreCase("LOOT"))
             categoryBits = Constants.BITMASK_LOOT;
         else if (collisionType.equalsIgnoreCase("PLAYER_BULLET"))
@@ -56,11 +56,11 @@ public class BodyFactory {
 
         short maskingBits = 0;
         if(Constants.BITMASK_PLAYER_BULLET == categoryBits)
-            maskingBits = Constants.BITMASK_ENEMY | Constants.BITMASK_LEVEL_BOUNDS | Constants.BITMASK_ENVIRONMENT;
+            maskingBits = 0;//Constants.BITMASK_ENEMY | Constants.BITMASK_LEVEL_BOUNDS | Constants.BITMASK_ENVIRONMENT;
         else if(Constants.BITMASK_ENEMY_BULLET == categoryBits)
-            maskingBits = Constants.BITMASK_PLAYER | Constants.BITMASK_LEVEL_BOUNDS | Constants.BITMASK_ENVIRONMENT;
+            maskingBits = Constants.BITMASK_PLAYER | Constants.BITMASK_LEVEL_BOUNDS | Constants.BITMASK_EXPLOSION;
         else if(Constants.BITMASK_ENEMY == categoryBits)
-            maskingBits = Constants.BITMASK_PLAYER | Constants.BITMASK_PLAYER_BULLET | Constants.BITMASK_ENVIRONMENT;
+            maskingBits = Constants.BITMASK_PLAYER | Constants.BITMASK_PLAYER_BULLET | Constants.BITMASK_EXPLOSION;
         else
             maskingBits = (short)((Constants.BITMASK_PLAYER | Constants.BITMASK_ENEMY | Constants.BITMASK_LEVEL_BOUNDS | Constants.BITMASK_LOOT | Constants.BITMASK_PLAYER_BULLET) ^ categoryBits);
 

@@ -35,7 +35,7 @@ public class Constants {
     public static final short   BITMASK_LOOT = 0x0008;
     public static final short   BITMASK_PLAYER_BULLET = 0x0010;
     public static final short   BITMASK_ENEMY_BULLET = 0x0020;
-    public static final short   BITMASK_ENVIRONMENT = 0x0040;
+    public static final short   BITMASK_EXPLOSION = 0x0040;
 
     //****************************************************************************
     //*********** Player Actions *************************************************
