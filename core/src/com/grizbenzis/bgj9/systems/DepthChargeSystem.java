@@ -4,6 +4,9 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.badlogic.gdx.Gdx;
+import com.grizbenzis.bgj9.Constants;
+import com.grizbenzis.bgj9.EntityManager;
 import com.grizbenzis.bgj9.components.DepthChargeComponent;
 import com.grizbenzis.bgj9.components.PositionComponent;
 
@@ -24,6 +27,16 @@ public class DepthChargeSystem extends IteratingSystem {
         DepthChargeComponent depthChargeComponent = _depthChargeComponents.get(entity);
         PositionComponent positionComponent = _positionComponents.get(entity);
 
-        // TODO: get min/max depths. find depth% from positionComponent (use a buffer variable, too), if depth>tolerance grab charge (how? we're probly need a DepthCharge actor, stuff in entity userdata) then detonate
+        float minDepth = Constants.WATER_LEVEL_IN_METERS;
+        float maxDepth = 0f;
+        float deltaDepth = Math.abs(maxDepth - minDepth);
+
+        float detonationDepth = minDepth - (depthChargeComponent.depth * deltaDepth);
+        float curDepth = positionComponent.y * Constants.PIXELS_TO_METERS;
+        if(curDepth < detonationDepth) {
+            EntityManager.getInstance().destroyEntity(entity);
+
+            // TODO: make explosion
+        }
     }
 }
