@@ -9,7 +9,7 @@ public class Constants {
     public static final String LOG_TAG = "bgj9";
     public static final float GRAVITY = -8f;
 
-    public static float WATER_LEVEL = 4f; // TODO: this isnt going to work long-term. lets get something going then come back to this
+    public static float WATER_LEVEL_IN_METERS = 4f; // TODO: this isnt going to work long-term. lets get something going then come back to this
 
     //****************************************************************************
     //*********** World Scale ****************************************************

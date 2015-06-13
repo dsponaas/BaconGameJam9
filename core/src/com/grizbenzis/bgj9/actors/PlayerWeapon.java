@@ -27,7 +27,7 @@ public class PlayerWeapon {
 
     private float _cooldownTimer;
     protected void resetCooldownTimer()     { _cooldownTimer = Constants.SHOOTING_COOLDOWN_TIMER; }
-    protected void decrementCooldownTimer() { _cooldownTimer -= Time.time; Gdx.app.log(Constants.LOG_TAG, "cooldown decrement"); }
+    protected void decrementCooldownTimer() { _cooldownTimer -= Time.time; }
 
     public PlayerWeapon(Player player, Vector2 positionOffset, float direction) {
         _state = new DefaultStateMachine<PlayerWeapon>(this, PlayerWeaponState.READY);
@@ -68,9 +68,13 @@ public class PlayerWeapon {
         Body body = BodyFactory.getInstance().generate(bulletEntity, "bullet.json", new Vector2(pos.x, pos.y));
         BodyComponent bulletBody = new BodyComponent(bulletPosition, body);
         RenderComponent renderComponent = new RenderComponent(0);
-//        DepthChargeComponent depthChargeComponent = new DepthChargeComponent(charge);
 
-        bulletEntity.add(bulletSprite).add(bulletPosition).add(bulletBody).add(renderComponent);//.add(depthChargeComponent);
+        float charge = 1f;
+        if(_chargeTimer < Constants.SHOOTING_CHARGE_UP_TIME)
+            charge = _chargeTimer / Constants.SHOOTING_CHARGE_UP_TIME;
+        DepthChargeComponent depthChargeComponent = new DepthChargeComponent(charge);
+
+        bulletEntity.add(bulletSprite).add(bulletPosition).add(bulletBody).add(renderComponent).add(depthChargeComponent);
         EntityManager.getInstance().addEntity(bulletEntity);
 
         float mass = body.getMass();

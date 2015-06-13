@@ -81,7 +81,7 @@ public class GameScreen implements Screen {
         Entity entity = new Entity();
 
         Sprite sprite = new Sprite(ResourceManager.getTexture("player"));
-        Vector2 position = new Vector2(4f * Constants.METERS_TO_PIXELS, 4f * Constants.METERS_TO_PIXELS);
+        Vector2 position = new Vector2(4f * Constants.METERS_TO_PIXELS, Constants.WATER_LEVEL_IN_METERS * Constants.METERS_TO_PIXELS);
 
         Body body = BodyFactory.getInstance().generate(entity, "player.json", position);
 
