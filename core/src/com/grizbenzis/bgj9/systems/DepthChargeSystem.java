@@ -7,6 +7,7 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.Gdx;
 import com.grizbenzis.bgj9.Constants;
 import com.grizbenzis.bgj9.EntityManager;
+import com.grizbenzis.bgj9.GameBoardInfo;
 import com.grizbenzis.bgj9.components.DepthChargeComponent;
 import com.grizbenzis.bgj9.components.PositionComponent;
 
@@ -27,14 +28,15 @@ public class DepthChargeSystem extends IteratingSystem {
         DepthChargeComponent depthChargeComponent = _depthChargeComponents.get(entity);
         PositionComponent positionComponent = _positionComponents.get(entity);
 
-        float minDepth = Constants.WATER_LEVEL_IN_METERS;
-        float maxDepth = 0f;
+        float minDepth = GameBoardInfo.getInstance().getWaterLevel() - Constants.MIN_DETONATION_DEPTH_IN_PIXELS;
+        float maxDepth = Constants.FLOOR_DETONATION_BUFFER_IN_PIXELS;
         float deltaDepth = Math.abs(maxDepth - minDepth);
 
         float detonationDepth = minDepth - (depthChargeComponent.depth * deltaDepth);
-        float curDepth = positionComponent.y * Constants.PIXELS_TO_METERS;
+        float curDepth = positionComponent.y;
         if(curDepth < detonationDepth) {
             EntityManager.getInstance().destroyEntity(entity);
+            Gdx.app.log(Constants.LOG_TAG, "detonating");
 
             // TODO: make explosion
         }
