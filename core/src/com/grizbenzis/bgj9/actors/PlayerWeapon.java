@@ -9,10 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.grizbenzis.bgj9.*;
-import com.grizbenzis.bgj9.components.BodyComponent;
-import com.grizbenzis.bgj9.components.PositionComponent;
-import com.grizbenzis.bgj9.components.RenderComponent;
-import com.grizbenzis.bgj9.components.SpriteComponent;
+import com.grizbenzis.bgj9.components.*;
 
 /**
  * Created by sponaas on 6/13/15.
@@ -71,8 +68,9 @@ public class PlayerWeapon {
         Body body = BodyFactory.getInstance().generate(bulletEntity, "bullet.json", new Vector2(pos.x, pos.y));
         BodyComponent bulletBody = new BodyComponent(bulletPosition, body);
         RenderComponent renderComponent = new RenderComponent(0);
+//        DepthChargeComponent depthChargeComponent = new DepthChargeComponent(charge);
 
-        bulletEntity.add(bulletSprite).add(bulletPosition).add(bulletBody).add(renderComponent);
+        bulletEntity.add(bulletSprite).add(bulletPosition).add(bulletBody).add(renderComponent);//.add(depthChargeComponent);
         EntityManager.getInstance().addEntity(bulletEntity);
 
         float mass = body.getMass();

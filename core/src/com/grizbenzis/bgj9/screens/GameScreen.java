@@ -21,6 +21,7 @@ import com.grizbenzis.bgj9.components.BodyComponent;
 import com.grizbenzis.bgj9.components.PositionComponent;
 import com.grizbenzis.bgj9.components.RenderComponent;
 import com.grizbenzis.bgj9.components.SpriteComponent;
+import com.grizbenzis.bgj9.systems.DepthChargeSystem;
 import com.grizbenzis.bgj9.systems.PositionSystem;
 import com.grizbenzis.bgj9.systems.RenderSystem;
 
@@ -155,10 +156,12 @@ public class GameScreen implements Screen {
         Engine engine = new Engine();
 
         PositionSystem positionSystem = new PositionSystem(0);
-        RenderSystem renderSystem = new RenderSystem(_spriteBatch, 2);
+        RenderSystem renderSystem = new RenderSystem(_spriteBatch, 1);
+        DepthChargeSystem depthChargeSystem = new DepthChargeSystem(2);
 
         engine.addSystem(positionSystem);
         engine.addSystem(renderSystem);
+        engine.addSystem(depthChargeSystem);
 
         return engine;
     }
