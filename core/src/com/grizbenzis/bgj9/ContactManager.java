@@ -6,6 +6,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.grizbenzis.bgj9.components.BodyComponent;
+import com.grizbenzis.bgj9.components.EnemyDataComponent;
 
 /**
  * Created by sponaas on 6/13/15.
@@ -35,14 +36,19 @@ public class ContactManager implements ContactListener {
 
         // *************************************** EXPLOSION <=> ENEMY ***************************************
         if((Constants.BITMASK_EXPLOSION == fixtureAType) && (Constants.BITMASK_ENEMY == fixtureBType)) {
-            collideExplosionAndEnemy(fixtureB, bodyB);
+            EnemyDataComponent enemyDataComponent = (EnemyDataComponent)entityB.remove(EnemyDataComponent.class);
+            if(null != enemyDataComponent)
+                collideExplosionAndEnemy(fixtureB, bodyB, enemyDataComponent);
         }
         else if((Constants.BITMASK_EXPLOSION == fixtureBType) && (Constants.BITMASK_ENEMY == fixtureAType)) {
-            collideExplosionAndEnemy(fixtureA, bodyA);
+            EnemyDataComponent enemyDataComponent = (EnemyDataComponent)entityA.remove(EnemyDataComponent.class);
+            if(null != enemyDataComponent)
+                collideExplosionAndEnemy(fixtureA, bodyA, enemyDataComponent);
         }
     }
 
-    private void collideExplosionAndEnemy(Fixture fixture, Body body) {
+    // TODO: this shouldnt really be here but i'll probly end up cutting corners and leaving it anyways
+    private void collideExplosionAndEnemy(Fixture fixture, Body body, EnemyDataComponent enemyData) {
         Filter filter = fixture.getFilterData();
         filter.maskBits = 0;
         fixture.setFilterData(filter);
@@ -52,6 +58,9 @@ public class ContactManager implements ContactListener {
         Vector2 impulse = new Vector2(desiredVelocity.x * mass, desiredVelocity.y * mass);
 
         body.applyLinearImpulse(impulse.x, impulse.y, body.getWorldCenter().x, body.getWorldCenter().y, true);
+
+        // TODO: add in a depth bonus as well
+        GameBoardInfo.getInstance().incrementScore(enemyData.score);
     }
 
     @Override

@@ -152,7 +152,7 @@ public class GameScreen implements Screen {
 
         _hudBatch.begin();
         float scoreIconXPos = 4f; // lil bit of padding here...
-        hudFont.draw(_hudBatch, "SCORE: " + 0, scoreIconXPos, (float) Gdx.graphics.getHeight() - 4f); // TODO: actually show the score
+        hudFont.draw(_hudBatch, "SCORE: " + GameBoardInfo.getInstance().getScore(), scoreIconXPos, (float) Gdx.graphics.getHeight() - 4f); // TODO: actually show the score
         _hudBatch.end();
     }
 
