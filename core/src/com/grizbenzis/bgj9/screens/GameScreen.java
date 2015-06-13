@@ -67,10 +67,6 @@ public class GameScreen implements Screen {
 
         EntityManager.initialize(_engine, _world);
 
-        Entity playerEntity = makePlayerHack();
-        EntityManager.getInstance().addEntity(playerEntity);
-        playerActor = new Player(playerEntity);
-
         _inputManager = new InputManager();
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(_inputManager);
@@ -81,7 +77,7 @@ public class GameScreen implements Screen {
         Entity entity = new Entity();
 
         Sprite sprite = new Sprite(ResourceManager.getTexture("player"));
-        Vector2 position = new Vector2(4f * Constants.METERS_TO_PIXELS, Constants.WATER_LEVEL_IN_METERS * Constants.METERS_TO_PIXELS);
+        Vector2 position = new Vector2(4f * Constants.METERS_TO_PIXELS, GameBoardInfo.getInstance().getWaterLevel());
 
         Body body = BodyFactory.getInstance().generate(entity, "player.json", position);
 
@@ -125,6 +121,11 @@ public class GameScreen implements Screen {
     public void resize(int width, int height) {
         _screenWidth = width;
         _screenHeight = height;
+        GameBoardInfo.initialize(width, height);
+
+        Entity playerEntity = makePlayerHack();
+        EntityManager.getInstance().addEntity(playerEntity);
+        playerActor = new Player(playerEntity);
 
         _camera.setToOrtho(false, _screenWidth, _screenHeight);
         _camera.update();

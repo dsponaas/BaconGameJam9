@@ -80,10 +80,11 @@ public class PlayerWeapon {
         float mass = body.getMass();
 //        Vector2 impulse = new Vector2(direction * mass, 2f);
         Vector2 impulse = new Vector2(_direction * .05f, .05f);
+//        Gdx.app.log(Constants.LOG_TAG, "ximpulse:" + impulse.x + "  yimpulse:" + impulse.y);
         body.applyLinearImpulse(impulse.x, impulse.y, body.getWorldCenter().x, body.getWorldCenter().y, true);
 
         _state.changeState(PlayerWeaponState.COOLDOWN);
-//        Gdx.app.log( Constants.LOG_TAG, "firing" );
+//        Gdx.app.log(Constants.LOG_TAG, "firing");
     }
 
 }
