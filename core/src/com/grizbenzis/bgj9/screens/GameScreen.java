@@ -36,8 +36,6 @@ public class GameScreen implements Screen {
     private OrthographicCamera _camera;
     private World _world;
 
-    private Actor playerActor;
-
     private int _screenWidth, _screenHeight;
     private SpriteBatch _spriteBatch;
 
@@ -74,23 +72,6 @@ public class GameScreen implements Screen {
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
-    private Entity makePlayerHack() {
-        Entity entity = new Entity();
-
-        Sprite sprite = new Sprite(ResourceManager.getTexture("player"));
-        Vector2 position = new Vector2(4f * Constants.METERS_TO_PIXELS, GameBoardInfo.getInstance().getWaterLevel());
-
-        Body body = BodyFactory.getInstance().generate(entity, "player.json", position);
-
-        PositionComponent playerPositionComponent = new PositionComponent(position.x, position.y);
-        BodyComponent playerBodyComponent = new BodyComponent(playerPositionComponent, body);
-        SpriteComponent playerRenderComponent = new SpriteComponent(sprite);
-        RenderComponent renderComponent = new RenderComponent(0);
-
-        entity.add(playerPositionComponent).add(playerBodyComponent).add(playerRenderComponent).add(renderComponent);
-        return entity;
-    }
-
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -108,12 +89,13 @@ public class GameScreen implements Screen {
         _camera.position.y = _screenHeight / 2f;
         _camera.update();
 
+        GameBoardInfo.getInstance().update();
+
         _spriteBatch.begin();
         _engine.update((float)Time.time);
         _spriteBatch.setProjectionMatrix(_camera.combined);
         _spriteBatch.end();
 
-        playerActor.update(); // TODO: here for current convenince. roll into entitymanager or omsehitng?
         EntityManager.getInstance().update();
         _debugRenderer.render(_world, debugMatrix);
     }
@@ -124,9 +106,9 @@ public class GameScreen implements Screen {
         _screenHeight = height;
         GameBoardInfo.initialize(width, height);
 
-        Entity playerEntity = makePlayerHack();
+        Entity playerEntity = Player.makePlayerEntity();
         EntityManager.getInstance().addEntity(playerEntity);
-        playerActor = new Player(playerEntity);
+        EntityManager.getInstance().addActor(new Player(playerEntity));
 
         _camera.setToOrtho(false, _screenWidth, _screenHeight);
         _camera.update();

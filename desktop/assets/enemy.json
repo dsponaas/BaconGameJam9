@@ -1,0 +1,23 @@
+{
+  BodyDef : {
+    fixedRotation: true,
+    type: DynamicBody,
+    gravityScale: 0,
+    collisionType: PLAYER,
+    dimensionX: 100,
+    dimensionY: 20
+  },
+  Fixtures : [
+    {
+      description: none,
+      type: RectangleShape,
+      width: 100,
+      height: 20,
+      density: 1,
+      friction: 0,
+      restitution: 0,
+      x: 0,
+      y: 0
+    }
+  ]
+}

@@ -38,6 +38,23 @@ public class Player extends Actor {
         _rightWeapon = new PlayerWeapon(this, new Vector2(75f + halfSizeX, 10f + halfSizeY), 1f); // TODO: need legit positionOffset
     }
 
+    public static Entity makePlayerEntity() {
+        Entity entity = new Entity();
+
+        Sprite sprite = new Sprite(ResourceManager.getTexture("player"));
+        Vector2 position = new Vector2(4f * Constants.METERS_TO_PIXELS, GameBoardInfo.getInstance().getWaterLevel());
+
+        Body body = BodyFactory.getInstance().generate(entity, "player.json", position);
+
+        PositionComponent playerPositionComponent = new PositionComponent(position.x, position.y);
+        BodyComponent playerBodyComponent = new BodyComponent(playerPositionComponent, body);
+        SpriteComponent playerRenderComponent = new SpriteComponent(sprite);
+        RenderComponent renderComponent = new RenderComponent(0);
+
+        entity.add(playerPositionComponent).add(playerBodyComponent).add(playerRenderComponent).add(renderComponent);
+        return entity;
+    }
+
     @Override
     public void update() {
         _leftWeapon.update(InputManager.fireLeftActive);

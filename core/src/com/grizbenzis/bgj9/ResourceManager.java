@@ -16,6 +16,9 @@ public class ResourceManager {
 
         _textures.put("startButton", new Texture("badlogic.jpg"));
         _textures.put("player", new Texture("player.png"));
+        _textures.put("enemy", new Texture("enemy.png"));
+        _textures.put("bullet", new Texture("bullet.png"));
+        _textures.put("explosion", new Texture("explosion.png"));
     }
 
     public static Texture getTexture(String name) {

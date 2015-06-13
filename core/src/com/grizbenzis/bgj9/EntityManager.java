@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.grizbenzis.bgj9.actors.Actor;
 import com.grizbenzis.bgj9.components.BodyComponent;
 
 /**
@@ -15,11 +16,13 @@ public class EntityManager {
     private Engine _engine;
     private World _world;
     private static Array<Entity> _toDestroy;
+    private static Array<Actor> _actors;
 
     private EntityManager(Engine engine, World world) {
         _engine = engine;
         _world = world;
         _toDestroy = new Array<Entity>();
+        _actors = new Array<Actor>();
     }
 
     public static void initialize(Engine engine, World world) {
@@ -44,6 +47,14 @@ public class EntityManager {
         _toDestroy.add(entity);
     }
 
+    public void addActor(Actor actor) {
+        _actors.add(actor);
+    }
+
+    public void removeActor(Actor actor) {
+        _actors.removeValue(actor, true);
+    }
+
     public void update() {
         for(Entity entity : _toDestroy) {
             BodyComponent bodyComponent = entity.getComponent(BodyComponent.class);
@@ -52,6 +63,9 @@ public class EntityManager {
                 bodyComponent.body = null; // TODO: is this necessary?
             }
             _engine.removeEntity(entity);
+        }
+        for(Actor actor: _actors) {
+            actor.update();
         }
         _toDestroy.clear();
     }
