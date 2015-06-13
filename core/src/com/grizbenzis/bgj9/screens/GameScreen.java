@@ -54,7 +54,7 @@ public class GameScreen implements Screen {
 
         _engine = initializeEngine();
 
-        _world = new World(new Vector2(0f, 0f), false);
+        _world = new World(new Vector2(0f, Constants.GRAVITY), false);
         BodyFactory.initialize(_world);
 
         _screenWidth = Gdx.graphics.getWidth();
@@ -111,7 +111,7 @@ public class GameScreen implements Screen {
         _camera.update();
 
         _spriteBatch.begin();
-        _engine.update( (float)Time.time );
+        _engine.update((float)Time.time);
         _spriteBatch.setProjectionMatrix(_camera.combined);
         _spriteBatch.end();
 

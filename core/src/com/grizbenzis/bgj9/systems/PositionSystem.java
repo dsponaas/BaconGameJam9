@@ -22,11 +22,10 @@ public class PositionSystem extends IteratingSystem {
         super(Family.all(PositionComponent.class).get(), priority);
     }
 
-    public void processEntity( Entity entity, float deltaTime ) {
+    public void processEntity(Entity entity, float deltaTime) {
         PositionComponent positionComponent = _positionComponents.get(entity);
         SpriteComponent spriteComponent = _spriteComponents.get(entity);
         BodyComponent bodyComponent = _bodyComponents.get(entity);
-
 
         // Position priority: Body => PositionComponent => Sprites  (highest to lowest)
         if (bodyComponent != null) {

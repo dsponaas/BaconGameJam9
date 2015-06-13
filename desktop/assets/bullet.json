@@ -1,0 +1,22 @@
+{
+  BodyDef : {
+    fixedRotation: true,
+    type: DynamicBody,
+    gravityScale: 1,
+    collisionType: PLAYER_BULLET,
+    dimensionX: 5,
+    dimensionY: 5
+  },
+  Fixtures : [
+    {
+      description: none,
+      type: CircleShape,
+      radius: 10,
+      density: 1,
+      friction: 0,
+      restitution: 0,
+      x: 0,
+      y: 0
+    }
+  ]
+}
