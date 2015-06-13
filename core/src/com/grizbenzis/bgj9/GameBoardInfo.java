@@ -1,6 +1,7 @@
 package com.grizbenzis.bgj9;
 
 import com.badlogic.ashley.core.Entity;
+import com.grizbenzis.bgj9.actors.Actor;
 import com.grizbenzis.bgj9.actors.EnemySub;
 import com.grizbenzis.bgj9.actors.Player;
 
@@ -18,16 +19,23 @@ public class GameBoardInfo {
     private float _enemySpawnTimer;
 
     private float _gameBoardWidth;
-    public float getWidth()         { return _gameBoardWidth; }
+    public float getWidth()                 { return _gameBoardWidth; }
 
     private float _gameBoardHeight;
-    public float getHeight()        { return _gameBoardHeight; }
+    public float getHeight()                { return _gameBoardHeight; }
 
     private float _waterLevel;
-    public float getWaterLevel()    { return _waterLevel; }
+    public float getWaterLevel()            { return _waterLevel; }
 
     private int _score;
-    public int getScore()         { return _score; }
+    public int getScore()                   { return _score; }
+
+    private int _level;
+    public int getLevel()                   { return _level; }
+
+    private Player _player;
+    public Player getPlayer()               { return _player; }
+    public void setPlayer(Player player)    { _player = player; }
 
     private GameBoardInfo(float width, float height) {
         _gameBoardWidth = width;
@@ -36,6 +44,7 @@ public class GameBoardInfo {
         _enemySpawnTimer = ENEMY_SPAWN_TIMER_HACK;
         _rand = new Random();
         _score = 0;
+        _level = 1;
     }
 
     public static void initialize(float width, float height) {

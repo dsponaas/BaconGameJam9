@@ -61,20 +61,21 @@ public class PlayerWeapon {
 
     private void fire() {
         Entity bulletEntity = new Entity();
-        SpriteComponent bulletSprite = new SpriteComponent(new Sprite(new Texture("bullet.png")));
+        SpriteComponent bulletSprite = new SpriteComponent(new Sprite(ResourceManager.getTexture("bullet")));
         Vector2 pos = new Vector2(_player.getPosition().x + _positionOffset.x, _player.getPosition().y + _positionOffset.y);
 
         PositionComponent bulletPosition = new PositionComponent(pos.x, pos.y);
         Body body = BodyFactory.getInstance().generate(bulletEntity, "bullet.json", new Vector2(pos.x, pos.y));
         BodyComponent bulletBody = new BodyComponent(bulletPosition, body);
         RenderComponent renderComponent = new RenderComponent(0);
+        BulletComponent bulletComponent = new BulletComponent();
 
         float charge = 1f;
         if(_chargeTimer < Constants.SHOOTING_CHARGE_UP_TIME)
             charge = _chargeTimer / Constants.SHOOTING_CHARGE_UP_TIME;
         DepthChargeComponent depthChargeComponent = new DepthChargeComponent(charge);
 
-        bulletEntity.add(bulletSprite).add(bulletPosition).add(bulletBody).add(renderComponent).add(depthChargeComponent);
+        bulletEntity.add(bulletSprite).add(bulletPosition).add(bulletBody).add(renderComponent).add(depthChargeComponent).add(bulletComponent);
         EntityManager.getInstance().addEntity(bulletEntity);
 
         float mass = body.getMass();

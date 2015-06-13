@@ -58,9 +58,11 @@ public class BodyFactory {
         if(Constants.BITMASK_PLAYER_BULLET == categoryBits)
             maskingBits = 0;//Constants.BITMASK_ENEMY | Constants.BITMASK_LEVEL_BOUNDS | Constants.BITMASK_ENVIRONMENT;
         else if(Constants.BITMASK_ENEMY_BULLET == categoryBits)
-            maskingBits = Constants.BITMASK_PLAYER | Constants.BITMASK_LEVEL_BOUNDS | Constants.BITMASK_EXPLOSION;
+            maskingBits = Constants.BITMASK_WATER_SURFACE | Constants.BITMASK_EXPLOSION;
         else if(Constants.BITMASK_ENEMY == categoryBits)
             maskingBits = Constants.BITMASK_PLAYER | Constants.BITMASK_PLAYER_BULLET | Constants.BITMASK_EXPLOSION;
+        else if(Constants.BITMASK_EXPLOSION == categoryBits)
+            maskingBits = Constants.BITMASK_ENEMY | Constants.BITMASK_ENEMY_BULLET | Constants.BITMASK_PLAYER | Constants.BITMASK_PLAYER_BULLET;
         else
             maskingBits = (short)((Constants.BITMASK_PLAYER | Constants.BITMASK_ENEMY | Constants.BITMASK_LEVEL_BOUNDS | Constants.BITMASK_LOOT | Constants.BITMASK_PLAYER_BULLET) ^ categoryBits);
 
