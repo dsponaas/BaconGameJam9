@@ -3,6 +3,7 @@ package com.grizbenzis.bgj9;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.grizbenzis.bgj9.components.BodyComponent;
 
@@ -25,19 +26,32 @@ public class ContactManager implements ContactListener {
     public void beginContact(Contact contact) {
         Fixture fixtureA = contact.getFixtureA();
         Fixture fixtureB = contact.getFixtureB();
-//        Body bodyA = fixtureA.getBody();
-//        Body bodyB = fixtureB.getBody();
+        Body bodyA = fixtureA.getBody();
+        Body bodyB = fixtureB.getBody();
         short fixtureAType = fixtureA.getFilterData().categoryBits;
         short fixtureBType = fixtureB.getFilterData().categoryBits;
         Entity entityA = (Entity)fixtureA.getUserData();
         Entity entityB = (Entity)fixtureB.getUserData();
 
+        // *************************************** EXPLOSION <=> ENEMY ***************************************
         if((Constants.BITMASK_EXPLOSION == fixtureAType) && (Constants.BITMASK_ENEMY == fixtureBType)) {
-            // TODO: ENEMY STRUCK
+            collideExplosionAndEnemy(fixtureB, bodyB);
         }
         else if((Constants.BITMASK_EXPLOSION == fixtureBType) && (Constants.BITMASK_ENEMY == fixtureAType)) {
-            // TODO: ENEMY STRUCK
+            collideExplosionAndEnemy(fixtureA, bodyA);
         }
+    }
+
+    private void collideExplosionAndEnemy(Fixture fixture, Body body) {
+        Filter filter = fixture.getFilterData();
+        filter.maskBits = 0;
+        fixture.setFilterData(filter);
+
+        Vector2 desiredVelocity = body.getLinearVelocity().scl(-1f).add(0f, -3f);
+        float mass = body.getMass();
+        Vector2 impulse = new Vector2(desiredVelocity.x * mass, desiredVelocity.y * mass);
+
+        body.applyLinearImpulse(impulse.x, impulse.y, body.getWorldCenter().x, body.getWorldCenter().y, true);
     }
 
     @Override

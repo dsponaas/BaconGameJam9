@@ -10,6 +10,7 @@
   Fixtures : [
     {
       description: none,
+      isSensor: false,
       type: RectangleShape,
       width: 100,
       height: 20,

@@ -108,7 +108,7 @@ public class BodyFactory {
 
             FixtureDef fixtureDef = new FixtureDef();
             fixtureDef.shape = shape;
-            fixtureDef.isSensor = false; // TODO: dont think im gunna need sensors here. if i do, remember to add back the part for parsing out sensor info
+            fixtureDef.isSensor = jsonFixture.getBoolean("isSensor");
             fixtureDef.density = jsonFixture.getFloat("density");
             fixtureDef.friction = 0f; //jsonFixture.getFloat("friction"); TODO: dont think friction should be a factor
             fixtureDef.filter.categoryBits = categoryBits;
