@@ -9,14 +9,14 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="40"
-   height="40"
-   viewBox="0 0 40 40.000001"
+   width="20"
+   height="20"
+   viewBox="0 0 20 20"
    id="svg8175"
    version="1.1"
    inkscape:version="0.91 r13725"
    sodipodi:docname="powerup_speed.svg"
-   inkscape:export-filename="/Users/sponaas/workspace/BaconGameJam9/art/powerupspeed.png"
+   inkscape:export-filename="/Users/sponaas/workspace/BaconGameJam9/desktop/assets/powerupspeedsmall.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -56,38 +56,39 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-1012.3622)">
+     transform="translate(0,-1032.3622)">
     <ellipse
        style="fill:#ffe345;fill-opacity:1;stroke:none;stroke-opacity:1"
        id="path6943"
-       cx="20.178572"
-       cy="1032.5408"
-       rx="19.970497"
-       ry="19.983278"
+       cx="10.044643"
+       cy="1042.4961"
+       rx="9.8365688"
+       ry="10.027921"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <ellipse
        style="fill:#ffffff;fill-opacity:0.55681817;stroke:none;stroke-opacity:1"
        id="path6943-8"
-       cx="19.876804"
-       cy="1032.7117"
-       rx="15.805476"
-       ry="15.815591"
+       cx="9.8960056"
+       cy="1042.5819"
+       rx="7.7850666"
+       ry="7.9365106"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="5.2678571"
-       y="1037.5408"
+       style="font-style:normal;font-weight:normal;font-size:7.45745611px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="2.7255619"
+       y="1035.318"
        id="text8805"
        sodipodi:linespacing="125%"
        inkscape:export-filename="/Users/sponaas/workspace/BaconGameJam9/desktop/assets/powerupspd.png"
        inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90"><tspan
+       inkscape:export-ydpi="90"
+       transform="scale(0.99072994,1.0093568)"><tspan
          sodipodi:role="line"
          id="tspan8807"
-         x="5.2678571"
-         y="1037.5408">SPD</tspan></text>
+         x="2.7255619"
+         y="1035.318">SPD</tspan></text>
   </g>
 </svg>

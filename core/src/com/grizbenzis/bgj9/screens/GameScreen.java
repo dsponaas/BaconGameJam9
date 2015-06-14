@@ -17,6 +17,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.grizbenzis.bgj9.*;
 import com.grizbenzis.bgj9.actors.Player;
 import com.grizbenzis.bgj9.components.ParallaxBackgroundComponent;
+import com.grizbenzis.bgj9.components.PlayerDataComponent;
 import com.grizbenzis.bgj9.systems.*;
 
 /**
@@ -88,6 +89,7 @@ public class GameScreen implements Screen {
         _spriteBatch.begin();
         _engine.update((float) Time.time);
         _spriteBatch.setProjectionMatrix(_camera.combined);
+        renderActivePowerups();
         _spriteBatch.end();
 
         EntityManager.getInstance().update();
@@ -156,6 +158,26 @@ public class GameScreen implements Screen {
         int lives = GameBoardInfo.getInstance().getLives();
         hudFont.draw(_hudBatch, "LIVES: " + lives + "   LEVEL: " + level + "   SCORE: " + score, scoreIconXPos, (float) Gdx.graphics.getHeight() - 4f); // TODO: actually show the score
         _hudBatch.end();
+    }
+
+    private final float POWERUP_BUFFER_HACK = 25f;
+    private void renderActivePowerups() {
+        float drawPosX = GameBoardInfo.getInstance().getWidth() - POWERUP_BUFFER_HACK;
+        float drawPosY = GameBoardInfo.getInstance().getHeight() - POWERUP_BUFFER_HACK + 3f;
+
+        PlayerDataComponent playerData = GameBoardInfo.getInstance().getPlayerData();
+        if(playerData.powerupTimeExplosionUp > 0f) {
+            _spriteBatch.draw(ResourceManager.getTexture("powerupexplsmall"), drawPosX, drawPosY);
+            drawPosX -= POWERUP_BUFFER_HACK;
+        }
+        if(playerData.powerupTimeSpeedUp > 0f) {
+            _spriteBatch.draw(ResourceManager.getTexture("powerupspdsmall"), drawPosX, drawPosY);
+            drawPosX -= POWERUP_BUFFER_HACK;
+        }
+        if(playerData.powerupTimePoints2x > 0f) {
+            _spriteBatch.draw(ResourceManager.getTexture("poweruppointssmall"), drawPosX, drawPosY);
+            drawPosX -= POWERUP_BUFFER_HACK;
+        }
     }
 
     private Engine initializeEngine() {

@@ -49,6 +49,7 @@ public class GameBoardInfo {
     private Player _player;
     public Player getPlayer()               { return _player; }
     public void setPlayer(Player player)    { _player = player; }
+    public PlayerDataComponent getPlayerData()      { return _playerDataComponents.get(_player.getEntity()); }
 
     private float _powerupTimer;
     private static final float POWERUP_TIMER_HACK = 200f;
