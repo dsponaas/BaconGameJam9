@@ -15,27 +15,17 @@ import com.grizbenzis.bgj9.ResourceManager;
 import com.grizbenzis.bgj9.bgj9;
 
 /**
- * Created by sponaas on 6/12/15.
+ * Created by sponaas on 6/13/15.
  */
-public class SplashScreen implements Screen {
+public class GameOverScreen implements Screen {
 
     private Stage _stage;
     private SpriteBatch _spriteBatch;
-    private Sprite _titleSprite;
-
     private ImageButton _startButton;
-
-    public SplashScreen() {}
 
     @Override
     public void show() {
         _spriteBatch = new SpriteBatch();
-
-        _titleSprite = new Sprite(new Texture("badlogic.jpg"));
-        _titleSprite.setColor(1, 1, 1, 0);
-        _titleSprite.setOrigin( _titleSprite.getWidth() / 2, _titleSprite.getHeight() / 2 );
-        _titleSprite.setPosition( ( Gdx.graphics.getWidth() / 2 ) - ( _titleSprite.getWidth() / 2 ), ( Gdx.graphics.getHeight() / 2 ) - ( _titleSprite.getHeight() / 2 ) );
-
     }
 
     @Override
@@ -56,7 +46,7 @@ public class SplashScreen implements Screen {
         _stage.clear();
         Gdx.input.setInputProcessor(_stage);
 
-        Texture startButtonTex = ResourceManager.getTexture("startButton");
+        Texture startButtonTex = ResourceManager.getTexture("playAgainButton");
         _startButton = new ImageButton(new SpriteDrawable(new Sprite(startButtonTex)));
         _startButton.setX((Gdx.graphics.getWidth() / 2) - (_startButton.getWidth() / 2));
         _startButton.setY((Gdx.graphics.getHeight() / 2) - (_startButton.getHeight() / 2));
@@ -93,5 +83,4 @@ public class SplashScreen implements Screen {
         _stage.dispose();
         _spriteBatch.dispose();
     }
-
 }

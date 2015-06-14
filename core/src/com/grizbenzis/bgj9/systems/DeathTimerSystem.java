@@ -9,6 +9,7 @@ import com.grizbenzis.bgj9.Time;
 import com.grizbenzis.bgj9.bgj9;
 import com.grizbenzis.bgj9.components.BodyComponent;
 import com.grizbenzis.bgj9.components.DeathTimerComponent;
+import com.grizbenzis.bgj9.screens.GameOverScreen;
 import com.grizbenzis.bgj9.screens.SplashScreen;
 
 /**
@@ -30,7 +31,7 @@ public class DeathTimerSystem extends IteratingSystem {
 
         if(deathTimerComponent.timer < 0f) {
             if(GameBoardInfo.getInstance().getLives() == 0) {
-                bgj9.game.setScreen(new SplashScreen());
+                bgj9.game.setScreen(new GameOverScreen());
             }
             else {
                 GameBoardInfo.getInstance().decrementLives();
