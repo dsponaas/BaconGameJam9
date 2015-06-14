@@ -91,6 +91,8 @@ public class PlayerWeapon {
         body.applyLinearImpulse(impulse.x, impulse.y, body.getWorldCenter().x, body.getWorldCenter().y, true);
 
         _state.changeState(PlayerWeaponState.COOLDOWN);
+
+        ResourceManager.getPlayerShootingSound().play(Constants.PLAYER_SHOOTING_VOLUME);
 //        Gdx.app.log(Constants.LOG_TAG, "firing");
     }
 

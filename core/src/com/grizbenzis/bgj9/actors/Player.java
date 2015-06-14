@@ -64,6 +64,7 @@ public class Player extends Actor {
                 getEntity().remove(RenderComponent.class); // TODO: we're actually probly wanna leave it there and adda fire or something but for now...
                 _leftWeapon.resetState();
                 _rightWeapon.resetState();
+                ResourceManager.getPlayerDeathSound().play(Constants.DEATH_VOLUME);
                 return;
             }
 

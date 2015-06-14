@@ -50,6 +50,8 @@ public class BulletSystem extends IteratingSystem {
             explosionEntity.add(bulletSprite).add(positionComponent).add(bodyComponent).add(renderComponent).add(explosionComponent);
             EntityManager.getInstance().addEntity(explosionEntity);
             EntityManager.getInstance().destroyEntity(entity);
+
+            ResourceManager.getExplosionSound().play(Constants.EXPLOSION_VOLUME);
         }
     }
 }

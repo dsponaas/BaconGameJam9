@@ -15,7 +15,10 @@
    id="svg11017"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="gameover.svg">
+   sodipodi:docname="gameover.svg"
+   inkscape:export-filename="/Users/sponaas/workspace/BaconGameJam9/desktop/assets/gameover.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <defs
      id="defs11019" />
   <sodipodi:namedview
@@ -61,34 +64,34 @@
        width="1348.424"
        height="924.3396"
        x="-69.28508"
-       y="271.96048"
+       y="259.83865"
        rx="4.0759444"
        ry="4.0759444" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:128.37590027px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="97.367325"
-       y="482.17691"
+       y="470.05508"
        id="text11575"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan11577"
          x="97.367325"
-         y="482.17691">GAME OVER</tspan></text>
+         y="470.05508">GAME OVER</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:36.8944397px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="229.75165"
-       y="952.59174"
+       y="940.46991"
        id="text11579"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan11581"
          x="229.75165"
-         y="952.59174">Press any key to play again!</tspan></text>
+         y="940.46991">Press any key to play again!</tspan></text>
     <g
        id="g11604"
-       transform="matrix(0.25474652,0,0,0.19401225,43.837914,738.31074)">
+       transform="matrix(0.25474652,0,0,0.19401225,43.837914,726.18891)">
       <rect
          ry="16"
          rx="16"
@@ -112,12 +115,12 @@
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:74.3885498px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="360.36264"
-       y="684.10236"
+       y="671.98053"
        id="text11583"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan11585"
          x="360.36264"
-         y="684.10236">SCORE</tspan></text>
+         y="671.98053">SCORE</tspan></text>
   </g>
 </svg>
