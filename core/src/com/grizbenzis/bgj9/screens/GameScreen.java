@@ -8,19 +8,12 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.grizbenzis.bgj9.*;
-import com.grizbenzis.bgj9.actors.Actor;
 import com.grizbenzis.bgj9.actors.Player;
-import com.grizbenzis.bgj9.components.BodyComponent;
-import com.grizbenzis.bgj9.components.PositionComponent;
-import com.grizbenzis.bgj9.components.RenderComponent;
-import com.grizbenzis.bgj9.components.SpriteComponent;
 import com.grizbenzis.bgj9.systems.*;
 
 /**
@@ -164,15 +157,17 @@ public class GameScreen implements Screen {
         Engine engine = new Engine();
 
         PositionSystem positionSystem = new PositionSystem(0);
-        RenderSystem renderSystem = new RenderSystem(_spriteBatch, 1);
-        DepthChargeSystem depthChargeSystem = new DepthChargeSystem(2);
-        BulletSystem bulletSystem = new BulletSystem(3);
-        ExplosionSystem explosionSystem = new ExplosionSystem(4);
-        DeathTimerSystem deathTimerSystem = new DeathTimerSystem(5);
-        PlayerDataSystem playerDataSystem = new PlayerDataSystem(6);
+        RenderSpriteSystem renderSpriteSystem = new RenderSpriteSystem(_spriteBatch, 1);
+        RenderAnimationSystem renderAnimationSystem = new RenderAnimationSystem(_spriteBatch, 3);
+        DepthChargeSystem depthChargeSystem = new DepthChargeSystem(4);
+        BulletSystem bulletSystem = new BulletSystem(5);
+        ExplosionSystem explosionSystem = new ExplosionSystem(6);
+        DeathTimerSystem deathTimerSystem = new DeathTimerSystem(7);
+        PlayerDataSystem playerDataSystem = new PlayerDataSystem(8);
 
         engine.addSystem(positionSystem);
-        engine.addSystem(renderSystem);
+        engine.addSystem(renderSpriteSystem);
+        engine.addSystem(renderAnimationSystem);
         engine.addSystem(depthChargeSystem);
         engine.addSystem(bulletSystem);
         engine.addSystem(explosionSystem);
