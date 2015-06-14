@@ -66,6 +66,7 @@ public class Player extends Actor {
 
                 _leftWeapon.resetState();
                 _rightWeapon.resetState();
+                ResourceManager.getPlayerDeathSound().play(Constants.DEATH_VOLUME);
                 return;
             }
 

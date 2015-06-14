@@ -2,6 +2,7 @@ package com.grizbenzis.bgj9;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -28,6 +29,9 @@ public class ResourceManager {
     private static Animation _shipDestroyedAnimation;
 
     private static Music _gameMusic;
+    private static Sound _playerShootingSound;
+    private static Sound _playerDeathSound;
+    private static Sound _explosionSound;
 
     public static void initialize() {
         _textures = new HashMap<String, Texture>();
@@ -62,6 +66,10 @@ public class ResourceManager {
 
         _gameMusic = Gdx.audio.newMusic(Gdx.files.internal("test4_looping.ogg"));
         _gameMusic.setLooping( true );
+
+        _playerShootingSound = Gdx.audio.newSound(Gdx.files.internal("playershooting.ogg"));
+        _explosionSound = Gdx.audio.newSound(Gdx.files.internal("explosion.ogg"));
+        _playerDeathSound = Gdx.audio.newSound(Gdx.files.internal("death.ogg"));
     }
 
     public static Texture getTexture(String name) {
@@ -212,5 +220,17 @@ public class ResourceManager {
 
     public static Music getGameMusic() {
         return _gameMusic;
+    }
+
+    public static Sound getPlayerShootingSound() {
+        return _playerShootingSound;
+    }
+
+    public static Sound getExplosionSound() {
+        return _explosionSound;
+    }
+
+    public static Sound getPlayerDeathSound() {
+        return _playerDeathSound;
     }
 }
