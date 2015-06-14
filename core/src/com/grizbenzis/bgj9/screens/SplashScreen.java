@@ -21,7 +21,7 @@ public class SplashScreen implements Screen {
 
     private Stage _stage;
     private SpriteBatch _spriteBatch;
-    private Sprite _titleSprite;
+//    private Sprite _titleSprite;
 
     private ImageButton _startButton;
 
@@ -31,11 +31,8 @@ public class SplashScreen implements Screen {
     public void show() {
         _spriteBatch = new SpriteBatch();
 
-        _titleSprite = new Sprite(new Texture("badlogic.jpg"));
-        _titleSprite.setColor(1, 1, 1, 0);
-        _titleSprite.setOrigin( _titleSprite.getWidth() / 2, _titleSprite.getHeight() / 2 );
-        _titleSprite.setPosition( ( Gdx.graphics.getWidth() / 2 ) - ( _titleSprite.getWidth() / 2 ), ( Gdx.graphics.getHeight() / 2 ) - ( _titleSprite.getHeight() / 2 ) );
-
+//        _titleSprite = new Sprite(ResourceManager.getTexture("splashscreen"));
+//        _titleSprite.setPosition(0f, 0f);
     }
 
     @Override
@@ -45,6 +42,7 @@ public class SplashScreen implements Screen {
 
         _stage.act(delta);
         _spriteBatch.begin();
+//        _titleSprite.draw(_spriteBatch);
         _stage.draw();
         _spriteBatch.end();
     }
@@ -56,7 +54,7 @@ public class SplashScreen implements Screen {
         _stage.clear();
         Gdx.input.setInputProcessor(_stage);
 
-        Texture startButtonTex = ResourceManager.getTexture("startButton");
+        Texture startButtonTex = ResourceManager.getTexture("splashscreen");
         _startButton = new ImageButton(new SpriteDrawable(new Sprite(startButtonTex)));
         _startButton.setX((Gdx.graphics.getWidth() / 2) - (_startButton.getWidth() / 2));
         _startButton.setY((Gdx.graphics.getHeight() / 2) - (_startButton.getHeight() / 2));
