@@ -1,9 +1,14 @@
 package com.grizbenzis.bgj9;
 
+import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 import com.grizbenzis.bgj9.actors.Actor;
 import com.grizbenzis.bgj9.actors.EnemySub;
 import com.grizbenzis.bgj9.actors.Player;
+import com.grizbenzis.bgj9.components.*;
 
 import java.util.Random;
 
@@ -43,6 +48,11 @@ public class GameBoardInfo {
     public Player getPlayer()               { return _player; }
     public void setPlayer(Player player)    { _player = player; }
 
+    private float _powerupTimer;
+    private static final float POWERUP_TIMER_HACK = 200f;
+
+    private ComponentMapper<PlayerDataComponent> _playerDataComponents = ComponentMapper.getFor(PlayerDataComponent.class);
+
     private GameBoardInfo(float width, float height) {
         _gameBoardWidth = width;
         _gameBoardHeight = height;
@@ -53,6 +63,7 @@ public class GameBoardInfo {
         _level = 1;
         _lives = Constants.NUM_LIVES;
         _levelTimer = Constants.LEVEL_TIME;
+        _powerupTimer = POWERUP_TIMER_HACK;
     }
 
     public static void initialize(float width, float height) {
@@ -65,6 +76,7 @@ public class GameBoardInfo {
     public void update() {
         _enemySpawnTimer -= (float)Time.time;
         _levelTimer -= (float)Time.time;
+        _powerupTimer -= (float)Time.time;
         if(_enemySpawnTimer < 0f) {
             float speed = _rand.nextBoolean() ? 1f : -1f;
             float yPos = getRandomFloat(Constants.FLOOR_DETONATION_BUFFER_IN_PIXELS,
@@ -83,6 +95,10 @@ public class GameBoardInfo {
             _levelTimer = Constants.LEVEL_TIME;
             incrementLevel();
         }
+        if(_powerupTimer < 0f) {
+            _powerupTimer = POWERUP_TIMER_HACK;
+            spawnPowerupEntity();
+        }
     }
 
     public static GameBoardInfo getInstance()       { return _instance; }
@@ -96,7 +112,11 @@ public class GameBoardInfo {
     }
 
     public void incrementScore(int val) {
-        _score += val;
+        int factor = 1;
+        PlayerDataComponent playerDataComponent = _playerDataComponents.get(getPlayer().getEntity());
+        if(playerDataComponent.powerupTimePoints2x > 0f)
+            factor = 2;
+        _score += (val * factor);
     }
 
     private float getSpawnTimer() {
@@ -104,6 +124,25 @@ public class GameBoardInfo {
         for(int i = 1; i < _level; ++i)
             spawnTimer *= Constants.LEVEL_ADVANCE_SPAWN_TIMER_MOD; // TODO: this is kind of terrible
         return spawnTimer;
+    }
+
+    public void spawnPowerupEntity() {
+        Entity entity = new Entity();
+
+        int type = _rand.nextInt(Constants.PowerupType.values().length);
+        Gdx.app.log( Constants.LOG_TAG, "type:" + type);
+
+        float xPos = getRandomFloat(0f + Constants.FLOOR_DETONATION_BUFFER_IN_PIXELS, _gameBoardWidth - Constants.FLOOR_DETONATION_BUFFER_IN_PIXELS);
+        float yPos = getRandomFloat(0f + Constants.FLOOR_DETONATION_BUFFER_IN_PIXELS, _gameBoardHeight - Constants.SKY_HEIGHT_IN_PIXELS - Constants.FLOOR_DETONATION_BUFFER_IN_PIXELS);
+        PositionComponent positionComponent = new PositionComponent(xPos, yPos);
+        SpriteComponent spriteComponent = new SpriteComponent(new Sprite(ResourceManager.getTexture("garbypowerup")));
+        BodyComponent bodyComponent = new BodyComponent(positionComponent, BodyFactory.getInstance().generate(entity, "powerup.json", new Vector2(xPos, yPos)));
+        PowerupComponent powerupComponent = new PowerupComponent(Constants.PowerupType.fromInt(type));
+        RenderComponent renderComponent = new RenderComponent(0);
+
+        entity.add(positionComponent).add(spriteComponent).add(bodyComponent).add(powerupComponent).add(renderComponent);
+
+        EntityManager.getInstance().addEntity(entity);
     }
 
 }

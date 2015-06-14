@@ -66,6 +66,16 @@ public class ContactManager implements ContactListener {
             if(playerDataComponent.invincibilityTime <= 0f)
                 playerDataComponent.alive = false;
         }
+
+        // *************************************** LOOT <=> EXPLOSION *****************************************
+        else if((Constants.BITMASK_LOOT == fixtureAType) && (Constants.BITMASK_EXPLOSION == fixtureBType)) {
+            PowerupComponent powerupComponent = entityA.getComponent(PowerupComponent.class);
+            powerupComponent.pickedUp = true;
+        }
+        else if((Constants.BITMASK_LOOT == fixtureBType) && (Constants.BITMASK_EXPLOSION == fixtureAType)) {
+            PowerupComponent powerupComponent = entityB.getComponent(PowerupComponent.class);
+            powerupComponent.pickedUp = true;
+        }
     }
 
     // TODO: this shouldnt really be here but i'll probly end up cutting corners and leaving it anyways

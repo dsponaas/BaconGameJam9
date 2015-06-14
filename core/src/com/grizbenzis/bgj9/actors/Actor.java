@@ -11,7 +11,7 @@ import com.grizbenzis.bgj9.components.PositionComponent;
 public class Actor {
 
     private Entity _entity;
-    protected Entity getEntity()        { return _entity; }
+    public Entity getEntity()           { return _entity; }
 
     private Body _body;
     protected Body getBody()            { return _body; }

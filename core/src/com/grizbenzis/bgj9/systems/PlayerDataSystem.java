@@ -26,6 +26,16 @@ public class PlayerDataSystem extends IteratingSystem {
         PlayerDataComponent playerDataComponent = _playerDataComponents.get(entity);
         RenderComponent renderComponent = _renderComponents.get(entity);
 
+        if(playerDataComponent.powerupTimeExplosionUp > 0f) {
+            playerDataComponent.powerupTimeExplosionUp -= (float)Time.time;
+        }
+        if(playerDataComponent.powerupTimePoints2x > 0f) {
+            playerDataComponent.powerupTimePoints2x -= (float)Time.time;
+        }
+        if(playerDataComponent.powerupTimeSpeedUp > 0f) {
+            playerDataComponent.powerupTimeSpeedUp -= (float)Time.time;
+        }
+
         if(playerDataComponent.invincibilityTime > 0f) {
             boolean visible = true;
             float hackVal = playerDataComponent.invincibilityTime;

@@ -30,6 +30,7 @@ public class ResourceManager {
         _textures.put("skybackground1", new Texture("skybackground1.png"));
         _textures.put("skybackground2", new Texture("skybackground2.png"));
         _textures.put("waterbackground1", new Texture("waterbackground1.png"));
+        _textures.put("garbypowerup", new Texture("garbypowerup.png"));
 
         createSubDestroyedAnimation();
     }

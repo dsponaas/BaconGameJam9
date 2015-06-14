@@ -170,6 +170,7 @@ public class GameScreen implements Screen {
         ExplosionSystem explosionSystem = new ExplosionSystem(6);
         DeathTimerSystem deathTimerSystem = new DeathTimerSystem(7);
         PlayerDataSystem playerDataSystem = new PlayerDataSystem(8);
+        PowerupSystem powerupSystem = new PowerupSystem(9);
 
         engine.addSystem(parallaxBackgroundRenderSystem);
         engine.addSystem(positionSystem);
@@ -180,6 +181,7 @@ public class GameScreen implements Screen {
         engine.addSystem(explosionSystem);
         engine.addSystem(deathTimerSystem);
         engine.addSystem(playerDataSystem);
+        engine.addSystem(powerupSystem);
 
         return engine;
     }

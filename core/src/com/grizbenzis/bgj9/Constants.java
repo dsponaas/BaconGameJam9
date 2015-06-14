@@ -53,4 +53,25 @@ public class Constants {
     public static final float SHOOTING_OVERCHARGE_TIME = 60f;
     public static final float DEPTH_CHARGE_EXPLOSION_DURATION = 30f;
 
+    public static final float POWERUP_TIMER = 300f;
+    public static final float POWERUP_SPEED_ACCEL_FACTOR = 1.25f;
+    public static final float POWERUP_SPEED_MAX_SPEED_FACTOR = 2f;
+    public enum PowerupType {
+        POINTS_2X,
+        SPEED_UP,
+        EXPLOSION_UP;
+
+        public static PowerupType fromInt(int x) {
+            switch(x) {
+                case 0:
+                    return POINTS_2X;
+                case 1:
+                    return SPEED_UP;
+                case 2:
+                    return EXPLOSION_UP;
+            }
+            return null;
+        }
+    }
+
 }

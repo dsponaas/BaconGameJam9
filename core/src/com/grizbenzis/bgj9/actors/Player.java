@@ -85,6 +85,12 @@ public class Player extends Actor {
             movementInput -= 1f;
 
         float acceleration = movementInput * (float)Time.time * Constants.BASE_PLAYER_ACCEL;
+        float maxSpeed = Constants.BASE_PLAYER_MAXSPEED;
+        PlayerDataComponent playerDataComponent = _playerDataComponents.get(getEntity());
+        if(playerDataComponent.powerupTimeSpeedUp > 0f) {
+            acceleration *= Constants.POWERUP_SPEED_ACCEL_FACTOR;
+            maxSpeed *= Constants.POWERUP_SPEED_MAX_SPEED_FACTOR;
+        }
 
         float velocity = getBody().getLinearVelocity().x;
 
@@ -97,7 +103,7 @@ public class Player extends Actor {
 
         float desiredVelocity = velocity + acceleration + frictionAdjustment;
 
-        if(Math.abs(desiredVelocity) > Constants.BASE_PLAYER_MAXSPEED)
+        if(Math.abs(desiredVelocity) > maxSpeed)
             desiredVelocity = Math.signum(desiredVelocity) * Constants.BASE_PLAYER_MAXSPEED;
 
         float deltaVelocity = desiredVelocity - velocity;
@@ -121,6 +127,9 @@ public class Player extends Actor {
         PlayerDataComponent playerDataComponent = _playerDataComponents.get(getEntity());
         playerDataComponent.invincibilityTime = Constants.INVINCIBILITY_TIME;
         playerDataComponent.alive = true;
+        playerDataComponent.powerupTimePoints2x = -1f;
+        playerDataComponent.powerupTimeSpeedUp = -1f;
+        playerDataComponent.powerupTimeExplosionUp = -1f;
         getEntity().add(new RenderComponent(0));
 
         BodyComponent bodyComponent = _bodyComponents.get(getEntity());
