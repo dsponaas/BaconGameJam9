@@ -38,6 +38,9 @@ public class PowerupSystem extends IteratingSystem {
             else if(Constants.PowerupType.POINTS_2X.ordinal() == powerupComponent.type) {
                 playerDataComponent.powerupTimePoints2x = Constants.POWERUP_TIMER;
             }
+            else if(Constants.PowerupType.EXTRA_LIFE.ordinal() == powerupComponent.type) {
+                GameBoardInfo.getInstance().incrementLives();
+            }
         }
 
         powerupComponent.timer -= (float) Time.time;

@@ -28,6 +28,7 @@ public class ResourceManager {
         _textures.put("enemy2", new Texture("enemy2.png"));
         _textures.put("bullet", new Texture("bullet.png"));
         _textures.put("explosion", new Texture("explosion.png"));
+        _textures.put("largeexplosion", new Texture("largeexplosion.png"));
         _textures.put("enemybullet", new Texture("enemybullet.png"));
         _textures.put("playAgainButton", new Texture("playagainbutton.png"));
         _textures.put("skybackground1", new Texture("skybackground1.png"));

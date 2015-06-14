@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.grizbenzis.bgj9.BodyFactory;
 import com.grizbenzis.bgj9.Constants;
 import com.grizbenzis.bgj9.EntityManager;
+import com.grizbenzis.bgj9.ResourceManager;
 import com.grizbenzis.bgj9.components.*;
 
 /**
@@ -30,11 +31,18 @@ public class BulletSystem extends IteratingSystem {
         if(bulletComponent.detonate) {
             PositionComponent sourcePos = entity.getComponent(PositionComponent.class);
 
+            String artFile = "explosion";
+            String jsonFile = "explosion.json";
+            if(bulletComponent.largeExplosion) {
+                artFile = "largeexplosion";
+                jsonFile = "largeexplosion.json";
+            }
+
             Entity explosionEntity = new Entity();
-            SpriteComponent bulletSprite = new SpriteComponent(new Sprite(new Texture("explosion.png")));
+            SpriteComponent bulletSprite = new SpriteComponent(new Sprite(ResourceManager.getTexture(artFile)));
 
             PositionComponent positionComponent = new PositionComponent(sourcePos.x, sourcePos.y);
-            Body body = BodyFactory.getInstance().generate(explosionEntity, "explosion.json", new Vector2(sourcePos.x, sourcePos.y));
+            Body body = BodyFactory.getInstance().generate(explosionEntity, jsonFile, new Vector2(sourcePos.x, sourcePos.y));
             BodyComponent bodyComponent = new BodyComponent(positionComponent, body);
             RenderComponent renderComponent = new RenderComponent(0);
             ExplosionComponent explosionComponent = new ExplosionComponent(Constants.DEPTH_CHARGE_EXPLOSION_DURATION);

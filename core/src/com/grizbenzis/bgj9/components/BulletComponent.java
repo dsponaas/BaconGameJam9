@@ -8,9 +8,11 @@ import com.badlogic.ashley.core.Component;
 public class BulletComponent extends Component {
 
     public boolean detonate;
+    public boolean largeExplosion;
 
     public BulletComponent() {
         detonate = false;
+        largeExplosion = false;
     }
 
 }

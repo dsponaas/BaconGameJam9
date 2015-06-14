@@ -188,7 +188,6 @@ public class GameScreen implements Screen {
         }
         if(playerData.powerupTimePoints2x > 0f) {
             _spriteBatch.draw(ResourceManager.getTexture("poweruppointssmall"), drawPosX, drawPosY);
-            drawPosX -= POWERUP_BUFFER_HACK;
         }
     }
 

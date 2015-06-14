@@ -26,7 +26,10 @@ public class DepthChargeSystem extends IteratingSystem {
         DepthChargeComponent depthChargeComponent = _depthChargeComponents.get(entity);
         PositionComponent positionComponent = _positionComponents.get(entity);
 
+        PlayerDataComponent playerData = GameBoardInfo.getInstance().getPlayerData();
         float minDepth = GameBoardInfo.getInstance().getWaterLevel() - Constants.MIN_DETONATION_DEPTH_IN_PIXELS;
+        if((null !=playerData) && (playerData.powerupTimeExplosionUp > 0f))
+            minDepth -= 50f;
         float maxDepth = Constants.FLOOR_DETONATION_BUFFER_IN_PIXELS;
         float deltaDepth = Math.abs(maxDepth - minDepth);
 
@@ -35,6 +38,8 @@ public class DepthChargeSystem extends IteratingSystem {
         if(curDepth < detonationDepth) {
             BulletComponent bulletComponent = _bulletComponents.get(entity);
             bulletComponent.detonate = true;
+            if((null !=playerData) && (playerData.powerupTimeExplosionUp > 0f))
+                bulletComponent.largeExplosion = true;
 //            Gdx.app.log(Constants.LOG_TAG, "detonating");
 //            makeExplosion(positionComponent.x, positionComponent.y);
 

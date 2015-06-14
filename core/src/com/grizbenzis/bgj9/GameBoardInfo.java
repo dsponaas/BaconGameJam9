@@ -52,7 +52,7 @@ public class GameBoardInfo {
     public PlayerDataComponent getPlayerData()      { return _playerDataComponents.get(_player.getEntity()); }
 
     private float _powerupTimer;
-    private static final float POWERUP_TIMER_HACK = 200f;
+    private static final float POWERUP_TIMER_HACK = 600f;
 
     private ComponentMapper<PlayerDataComponent> _playerDataComponents = ComponentMapper.getFor(PlayerDataComponent.class);
 
@@ -135,7 +135,6 @@ public class GameBoardInfo {
         Entity entity = new Entity();
 
         int type = _rand.nextInt(Constants.PowerupType.values().length);
-        Gdx.app.log( Constants.LOG_TAG, "type:" + type);
 
         float xPos = getRandomFloat(0f + Constants.FLOOR_DETONATION_BUFFER_IN_PIXELS, _gameBoardWidth - Constants.FLOOR_DETONATION_BUFFER_IN_PIXELS);
         float yPos = getRandomFloat(0f + Constants.FLOOR_DETONATION_BUFFER_IN_PIXELS, _gameBoardHeight - Constants.SKY_HEIGHT_IN_PIXELS - Constants.FLOOR_DETONATION_BUFFER_IN_PIXELS);
