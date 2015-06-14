@@ -2,7 +2,9 @@ package com.grizbenzis.bgj9.actors;
 
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.grizbenzis.bgj9.*;
@@ -101,7 +103,7 @@ public class EnemySub extends Actor {
         Vector2 impulse = new Vector2(shotDirection.x * mass, shotDirection.y * mass);
 //        Gdx.app.log(Constants.LOG_TAG, "ximpulse:" + impulse.x + "  yimpulse:" + impulse.y);
 
-        body.setTransform(body.getPosition(), 45);
+        body.setTransform(body.getPosition(), impulse.angle() * MathUtils.degRad);
         body.applyLinearImpulse(impulse.x, impulse.y, body.getWorldCenter().x, body.getWorldCenter().y, true);
     }
 
