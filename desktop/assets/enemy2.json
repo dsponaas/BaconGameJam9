@@ -1,0 +1,24 @@
+{
+  BodyDef : {
+    fixedRotation: true,
+    type: DynamicBody,
+    gravityScale: 0,
+    collisionType: ENEMY,
+    dimensionX: 130,
+    dimensionY: 40
+  },
+  Fixtures : [
+    {
+      description: none,
+      isSensor: false,
+      type: RectangleShape,
+      width: 130,
+      height: 40,
+      density: 1,
+      friction: 0,
+      restitution: 0,
+      x: 0,
+      y: 0
+    }
+  ]
+}
