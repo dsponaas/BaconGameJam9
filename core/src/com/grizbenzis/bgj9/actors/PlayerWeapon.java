@@ -57,6 +57,17 @@ public class PlayerWeapon {
         }
     }
 
+    public float getShotCharge() {
+        float charge = 1f;
+        if(_chargeTimer < Constants.SHOOTING_CHARGE_UP_TIME)
+            charge = _chargeTimer / Constants.SHOOTING_CHARGE_UP_TIME;
+        return charge;
+    }
+
+    public PlayerWeaponState getState() {
+        return (PlayerWeaponState)_state.getCurrentState();
+    }
+
     private void fire() {
         Entity bulletEntity = new Entity();
         SpriteComponent bulletSprite = new SpriteComponent(new Sprite(ResourceManager.getTexture("bullet")));
@@ -68,10 +79,7 @@ public class PlayerWeapon {
         RenderComponent renderComponent = new RenderComponent(0);
         BulletComponent bulletComponent = new BulletComponent();
 
-        float charge = 1f;
-        if(_chargeTimer < Constants.SHOOTING_CHARGE_UP_TIME)
-            charge = _chargeTimer / Constants.SHOOTING_CHARGE_UP_TIME;
-        DepthChargeComponent depthChargeComponent = new DepthChargeComponent(charge);
+        DepthChargeComponent depthChargeComponent = new DepthChargeComponent(getShotCharge());
 
         bulletEntity.add(bulletSprite).add(bulletPosition).add(bulletBody).add(renderComponent).add(depthChargeComponent).add(bulletComponent);
         EntityManager.getInstance().addEntity(bulletEntity);

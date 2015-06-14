@@ -5,17 +5,21 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.grizbenzis.bgj9.*;
 import com.grizbenzis.bgj9.actors.Player;
+import com.grizbenzis.bgj9.actors.PlayerWeapon;
+import com.grizbenzis.bgj9.actors.PlayerWeaponState;
 import com.grizbenzis.bgj9.components.ParallaxBackgroundComponent;
 import com.grizbenzis.bgj9.components.PlayerDataComponent;
 import com.grizbenzis.bgj9.systems.*;
@@ -35,6 +39,8 @@ public class GameScreen implements Screen {
     private SpriteBatch _hudBatch;
 
     private InputManager _inputManager;
+
+    private ShapeRenderer _shapeRenderer;
 
     private Box2DDebugRenderer _debugRenderer;
 
@@ -65,6 +71,8 @@ public class GameScreen implements Screen {
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(_inputManager);
         Gdx.input.setInputProcessor(inputMultiplexer);
+
+        _shapeRenderer = new ShapeRenderer();
     }
 
     @Override
@@ -91,6 +99,10 @@ public class GameScreen implements Screen {
         _spriteBatch.setProjectionMatrix(_camera.combined);
         renderActivePowerups();
         _spriteBatch.end();
+
+        _shapeRenderer.setProjectionMatrix(_camera.combined);
+        renderShotCharges();
+        _shapeRenderer.end();
 
         EntityManager.getInstance().update();
 //        _debugRenderer.render(_world, debugMatrix);
@@ -178,6 +190,63 @@ public class GameScreen implements Screen {
             _spriteBatch.draw(ResourceManager.getTexture("poweruppointssmall"), drawPosX, drawPosY);
             drawPosX -= POWERUP_BUFFER_HACK;
         }
+    }
+
+    private static float PREV_LEFT_CHARGE_HACK = 0f;
+    private static float PREV_RIGHT_CHARGE_HACK = 0f;
+    private void renderShotCharges() {
+        Player player = GameBoardInfo.getInstance().getPlayer();
+        PlayerWeapon leftWeapon = player.getLeftWeapon();
+        PlayerWeapon rightWeapon = player.getRightWeapon();
+
+        Vector2 leftPos = player.getCenterPos().add(-60f, 20f);
+        Vector2 rightPos = player.getCenterPos().add(60f, 20f);
+
+        float width = 10f; //TODO: WARNING! Magic number
+        float height = 40f; //TODO: WARNING! Magic number
+        float buffer = 1f; //TODO: WARNING! Magic number
+
+        if(leftWeapon.getState() == PlayerWeaponState.CHARGING) {
+            PREV_LEFT_CHARGE_HACK = leftWeapon.getShotCharge();
+            _shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            _shapeRenderer.setColor(new Color( 0f, 0f, 0f, 0.3f));
+            _shapeRenderer.rect(leftPos.x - (width / 2f), leftPos.y, width, height);
+            _shapeRenderer.end();
+
+            _shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            _shapeRenderer.setColor( new Color( 1f, 0f, 0f, 0.5f ) );
+            _shapeRenderer.rect(leftPos.x - (width / 2f) + buffer, leftPos.y + buffer, width - (2f * buffer), height - (2f * buffer));
+            _shapeRenderer.end();
+
+            _shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            _shapeRenderer.setColor( new Color( 0f, 1f, 0f, 0.8f ) );
+            _shapeRenderer.rect(leftPos.x - (width / 2f) + buffer, leftPos.y + buffer, width - (2f * buffer), PREV_LEFT_CHARGE_HACK * (height - (2f * buffer)));
+            _shapeRenderer.end();
+        }
+        else if(leftWeapon.getState() == PlayerWeaponState.COOLDOWN) {
+
+        }
+
+        if(rightWeapon.getState() == PlayerWeaponState.CHARGING) {
+            PREV_RIGHT_CHARGE_HACK = rightWeapon.getShotCharge();
+            _shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            _shapeRenderer.setColor(new Color( 0f, 0f, 0f, 0.3f));
+            _shapeRenderer.rect(rightPos.x - (width / 2f), rightPos.y, width, height);
+            _shapeRenderer.end();
+
+            _shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            _shapeRenderer.setColor( new Color( 1f, 0f, 0f, 0.5f ) );
+            _shapeRenderer.rect(rightPos.x - (width / 2f) + buffer, rightPos.y + buffer, width - (2f * buffer), height - (2f * buffer));
+            _shapeRenderer.end();
+
+            _shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            _shapeRenderer.setColor( new Color( 0f, 1f, 0f, 0.8f ) );
+            _shapeRenderer.rect(rightPos.x - (width / 2f) + buffer, rightPos.y + buffer, width - (2f * buffer), PREV_RIGHT_CHARGE_HACK * (height - (2f * buffer)));
+            _shapeRenderer.end();
+        }
+        else if(rightWeapon.getState() == PlayerWeaponState.COOLDOWN) {
+        }
+
     }
 
     private Engine initializeEngine() {

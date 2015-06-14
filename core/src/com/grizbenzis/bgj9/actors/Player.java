@@ -142,4 +142,11 @@ public class Player extends Actor {
         return new Vector2(GameBoardInfo.getInstance().getWidth() / 2, GameBoardInfo.getInstance().getWaterLevel() + (spriteComponent.sprite.getHeight() / 2) - 2f); // TODO: CAREFUL! HACK!
     }
 
+    public PlayerWeapon getLeftWeapon() {
+        return _leftWeapon;
+    }
+    public PlayerWeapon getRightWeapon() {
+        return _rightWeapon;
+    }
+
 }
