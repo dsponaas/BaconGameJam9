@@ -87,7 +87,7 @@ public class EnemySub extends Actor {
         Entity playerEntity = GameBoardInfo.getInstance().getPlayer().getEntity();
         PlayerDataComponent playerDataComponent = _playerDataComponents.get(playerEntity);
 
-        if (playerDataComponent.alive == false) {
+        if ((playerDataComponent.alive == false) || (playerDataComponent.invincibilityTime > 0f)) {
             return;
         }
 

@@ -19,6 +19,8 @@ public class Player extends Actor {
 
     private ComponentMapper<PlayerDataComponent> _playerDataComponents = ComponentMapper.getFor(PlayerDataComponent.class);
     private ComponentMapper<DeathTimerComponent> _deathTimerComponents = ComponentMapper.getFor(DeathTimerComponent.class);
+    private ComponentMapper<BodyComponent> _bodyComponents = ComponentMapper.getFor(BodyComponent.class);
+    private ComponentMapper<SpriteComponent> _spriteComponents = ComponentMapper.getFor(SpriteComponent.class);
 
     private PlayerWeapon _leftWeapon;
     private PlayerWeapon _rightWeapon;
@@ -43,17 +45,17 @@ public class Player extends Actor {
         Entity entity = new Entity();
 
         Sprite sprite = new Sprite(ResourceManager.getTexture("player"));
-        Vector2 position = new Vector2(GameBoardInfo.getInstance().getWidth() / 2, GameBoardInfo.getInstance().getWaterLevel() + (sprite.getHeight() / 2) + 3f);
+        SpriteComponent spriteComponent = new SpriteComponent(sprite);
+        Vector2 position = getStartPos(spriteComponent);
 
         Body body = BodyFactory.getInstance().generate(entity, "player.json", position);
 
         PositionComponent playerPositionComponent = new PositionComponent(position.x, position.y);
         BodyComponent playerBodyComponent = new BodyComponent(playerPositionComponent, body);
-        SpriteComponent playerRenderComponent = new SpriteComponent(sprite);
         RenderComponent renderComponent = new RenderComponent(0);
         PlayerDataComponent playerDataComponent = new PlayerDataComponent();
 
-        entity.add(playerPositionComponent).add(playerBodyComponent).add(playerRenderComponent).add(renderComponent).add(playerDataComponent);
+        entity.add(playerPositionComponent).add(playerBodyComponent).add(spriteComponent).add(renderComponent).add(playerDataComponent);
         return entity;
     }
 
@@ -124,7 +126,15 @@ public class Player extends Actor {
         playerDataComponent.invincibilityTime = Constants.INVINCIBILITY_TIME;
         playerDataComponent.alive = true;
         getEntity().add(new RenderComponent(0));
+
+        BodyComponent bodyComponent = _bodyComponents.get(getEntity());
+        Vector2 startPos = getStartPos(_spriteComponents.get(getEntity())).scl(Constants.PIXELS_TO_METERS);
+        bodyComponent.body.setTransform(startPos, 0f);
         // TODO: stuff?
+    }
+
+    private static Vector2 getStartPos(SpriteComponent spriteComponent) {
+        return new Vector2(GameBoardInfo.getInstance().getWidth() / 2, GameBoardInfo.getInstance().getWaterLevel() + (spriteComponent.sprite.getHeight() / 2) + 3f);
     }
 
 }
