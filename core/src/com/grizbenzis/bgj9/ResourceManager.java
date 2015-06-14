@@ -24,6 +24,9 @@ public class ResourceManager {
     private static Animation _sub2DestroyedAnimation;
     private static Animation _sub2DestroyedFlippedAnimation;
 
+    private static TextureAtlas _shipDestroyedAtlas;
+    private static Animation _shipDestroyedAnimation;
+
     private static Music _gameMusic;
 
     public static void initialize() {
@@ -51,6 +54,7 @@ public class ResourceManager {
         _textures.put("splashscreen", new Texture("splashscreen.png"));
         _textures.put("gameover", new Texture("gameover.png"));
 
+        createShipDestroyedAnimation();
         createSubDestroyedAnimation();
         createSub2DestroyedAnimation();
         createSubDestroyedFlippedAnimation();
@@ -62,6 +66,26 @@ public class ResourceManager {
 
     public static Texture getTexture(String name) {
         return _textures.get(name);
+    }
+
+    public static void createShipDestroyedAnimation() {
+        _shipDestroyedAtlas = new TextureAtlas("Ship Destroyed.atlas");
+
+        TextureRegion frame1 = _shipDestroyedAtlas.findRegion("ship destroyed 01");
+        TextureRegion frame2 = _shipDestroyedAtlas.findRegion("ship destroyed 02");
+        TextureRegion frame3 = _shipDestroyedAtlas.findRegion("ship destroyed 03");
+        TextureRegion frame4 = _shipDestroyedAtlas.findRegion("ship destroyed 04");
+        TextureRegion frame5 = _shipDestroyedAtlas.findRegion("ship destroyed 05");
+        TextureRegion frame6 = _shipDestroyedAtlas.findRegion("ship destroyed 06");
+        TextureRegion frame7 = _shipDestroyedAtlas.findRegion("ship destroyed 07");
+        TextureRegion frame8 = _shipDestroyedAtlas.findRegion("ship destroyed 08");
+
+        TextureRegion[] frames = new TextureRegion[] {
+                frame1, frame2, frame3, frame4, frame5, frame6,
+                frame7, frame8
+        };
+
+        _shipDestroyedAnimation = new Animation(3f, frames);
     }
 
     public static void createSubDestroyedAnimation() {
@@ -180,6 +204,7 @@ public class ResourceManager {
         _sub2DestroyedFlippedAnimation = new Animation(3f, frames);
     }
 
+    public static Animation getShipDestroyedAnimation() { return _shipDestroyedAnimation; }
     public static Animation getSubDestroyedAnimation() { return _subDestroyedAnimation; }
     public static Animation getSub2DestroyedAnimation() { return _sub2DestroyedAnimation; }
     public static Animation getSubDestroyedFlippedAnimation() { return _subDestroyedFlippedAnimation; }

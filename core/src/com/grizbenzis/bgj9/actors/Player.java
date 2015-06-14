@@ -61,7 +61,9 @@ public class Player extends Actor {
         if(deathTimerComponent == null) {
             if(!_playerDataComponents.get(getEntity()).alive) {
                 getEntity().add(new DeathTimerComponent(Constants.DEATH_TIME));
-                getEntity().remove(RenderComponent.class); // TODO: we're actually probly wanna leave it there and adda fire or something but for now...
+                getEntity().remove(SpriteComponent.class);
+                getEntity().add(new AnimationComponent(ResourceManager.getShipDestroyedAnimation()));
+
                 _leftWeapon.resetState();
                 _rightWeapon.resetState();
                 return;
@@ -131,6 +133,10 @@ public class Player extends Actor {
         playerDataComponent.powerupTimeSpeedUp = -1f;
         playerDataComponent.powerupTimeExplosionUp = -1f;
         getEntity().add(new RenderComponent(0));
+
+        getEntity().remove(AnimationComponent.class);
+        Sprite sprite = new Sprite(ResourceManager.getTexture("player"));
+        getEntity().add(new SpriteComponent(sprite));
 
         BodyComponent bodyComponent = _bodyComponents.get(getEntity());
         Vector2 startPos = getStartPos(_spriteComponents.get(getEntity())).scl(Constants.PIXELS_TO_METERS);
