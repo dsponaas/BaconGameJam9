@@ -1,0 +1,62 @@
+
+Ship Destroyed.png
+size: 1024,256
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+ship destroyed 01
+  rotate: false
+  xy: 2, 166
+  size: 260, 80
+  orig: 260, 80
+  offset: 0, 0
+  index: -1
+ship destroyed 02
+  rotate: false
+  xy: 2, 84
+  size: 260, 80
+  orig: 260, 80
+  offset: 0, 0
+  index: -1
+ship destroyed 03
+  rotate: false
+  xy: 264, 166
+  size: 260, 80
+  orig: 260, 80
+  offset: 0, 0
+  index: -1
+ship destroyed 04
+  rotate: false
+  xy: 2, 2
+  size: 260, 80
+  orig: 260, 80
+  offset: 0, 0
+  index: -1
+ship destroyed 05
+  rotate: false
+  xy: 264, 84
+  size: 260, 80
+  orig: 260, 80
+  offset: 0, 0
+  index: -1
+ship destroyed 06
+  rotate: false
+  xy: 526, 166
+  size: 260, 80
+  orig: 260, 80
+  offset: 0, 0
+  index: -1
+ship destroyed 07
+  rotate: false
+  xy: 264, 2
+  size: 260, 80
+  orig: 260, 80
+  offset: 0, 0
+  index: -1
+ship destroyed 08
+  rotate: false
+  xy: 526, 84
+  size: 260, 80
+  orig: 260, 80
+  offset: 0, 0
+  index: -1
