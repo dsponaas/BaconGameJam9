@@ -82,7 +82,7 @@ public class EnemySub extends Actor {
 
     private void fire() {
         Entity bulletEntity = new Entity();
-        SpriteComponent bulletSprite = new SpriteComponent(new Sprite(ResourceManager.getTexture("bullet")));
+        SpriteComponent bulletSprite = new SpriteComponent(new Sprite(ResourceManager.getTexture("enemybullet")));
         Vector2 pos = new Vector2(getPosition().x, getPosition().y);
 
         PositionComponent bulletPosition = new PositionComponent(pos.x, pos.y);
@@ -100,6 +100,8 @@ public class EnemySub extends Actor {
 //        Vector2 impulse = new Vector2(direction * mass, 2f);
         Vector2 impulse = new Vector2(shotDirection.x * mass, shotDirection.y * mass);
 //        Gdx.app.log(Constants.LOG_TAG, "ximpulse:" + impulse.x + "  yimpulse:" + impulse.y);
+
+        body.setTransform(body.getPosition(), 45);
         body.applyLinearImpulse(impulse.x, impulse.y, body.getWorldCenter().x, body.getWorldCenter().y, true);
     }
 
