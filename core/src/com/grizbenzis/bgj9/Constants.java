@@ -10,7 +10,7 @@ public class Constants {
     public static final float GRAVITY = -8f;
 
     public static final float DEATH_TIME = 120f;
-    public static final float INVINCIBILITY_TIME = 60f;
+    public static final float INVINCIBILITY_TIME = 180f;
     public static float SKY_HEIGHT_IN_PIXELS = 120;
     public static float MIN_DETONATION_DEPTH_IN_PIXELS = 60;
     public static float FLOOR_DETONATION_BUFFER_IN_PIXELS = 60;

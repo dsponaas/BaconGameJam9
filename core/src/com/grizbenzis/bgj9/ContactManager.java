@@ -62,11 +62,13 @@ public class ContactManager implements ContactListener {
         // *************************************** EXPLOSION <=> PLAYER ***************************************
         else if((Constants.BITMASK_EXPLOSION == fixtureAType) && (Constants.BITMASK_PLAYER == fixtureBType)) {
             PlayerDataComponent playerDataComponent = entityB.getComponent(PlayerDataComponent.class);
-            playerDataComponent.alive = false;
+            if(playerDataComponent.invincibilityTime <= 0f)
+                playerDataComponent.alive = false;
         }
         else if((Constants.BITMASK_EXPLOSION == fixtureBType) && (Constants.BITMASK_PLAYER == fixtureAType)) {
             PlayerDataComponent playerDataComponent = entityA.getComponent(PlayerDataComponent.class);
-            playerDataComponent.alive = false;
+            if(playerDataComponent.invincibilityTime <= 0f)
+                playerDataComponent.alive = false;
         }
     }
 
