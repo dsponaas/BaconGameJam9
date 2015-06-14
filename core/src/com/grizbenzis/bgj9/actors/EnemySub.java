@@ -17,6 +17,7 @@ public class EnemySub extends Actor {
 
     private ComponentMapper<EnemyDataComponent> _enemyDataComponents = ComponentMapper.getFor(EnemyDataComponent.class);
     private ComponentMapper<PositionComponent> _positionComponents = ComponentMapper.getFor(PositionComponent.class);
+    private ComponentMapper<PlayerDataComponent> _playerDataComponents = ComponentMapper.getFor(PlayerDataComponent.class);
 
     private final float SHOT_TIMER_HACK = 180f;
 
@@ -83,6 +84,13 @@ public class EnemySub extends Actor {
     private final float SHOT_SPEED_HACK = 5f;
 
     private void fire() {
+        Entity playerEntity = GameBoardInfo.getInstance().getPlayer().getEntity();
+        PlayerDataComponent playerDataComponent = _playerDataComponents.get(playerEntity);
+
+        if (playerDataComponent.alive == false) {
+            return;
+        }
+
         Entity bulletEntity = new Entity();
         SpriteComponent bulletSprite = new SpriteComponent(new Sprite(ResourceManager.getTexture("enemybullet")));
         Vector2 pos = new Vector2(getPosition().x, getPosition().y);
