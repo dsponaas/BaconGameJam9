@@ -7,13 +7,16 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.grizbenzis.bgj9.*;
 import com.grizbenzis.bgj9.actors.Player;
+import com.grizbenzis.bgj9.components.ParallaxBackgroundComponent;
 import com.grizbenzis.bgj9.systems.*;
 
 /**
@@ -65,7 +68,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClearColor(0, 0, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         Time.update();
@@ -109,9 +112,11 @@ public class GameScreen implements Screen {
         addLevelBounds(width * Constants.PIXELS_TO_METERS, 0f, width * Constants.PIXELS_TO_METERS, height * Constants.PIXELS_TO_METERS);
 
         addWaterSurface(0f,
-                (height - Constants.SKY_HEIGHT_IN_PIXELS) * Constants.PIXELS_TO_METERS,
+                (height - Constants.SKY_HEIGHT_IN_PIXELS - 5f) * Constants.PIXELS_TO_METERS, // TODO: CAREFUL! HACK!
                 (width) * Constants.PIXELS_TO_METERS,
-                (height - Constants.SKY_HEIGHT_IN_PIXELS) * Constants.PIXELS_TO_METERS);
+                (height - Constants.SKY_HEIGHT_IN_PIXELS - 5f) * Constants.PIXELS_TO_METERS); // TODO: CAREFUL! HACK!
+
+        makeBackgroundHack();
 
         _camera.setToOrtho(false, _screenWidth, _screenHeight);
         _camera.update();
@@ -156,6 +161,7 @@ public class GameScreen implements Screen {
     private Engine initializeEngine() {
         Engine engine = new Engine();
 
+        ParallaxBackgroundRenderSystem parallaxBackgroundRenderSystem = new ParallaxBackgroundRenderSystem(_spriteBatch, 0);
         PositionSystem positionSystem = new PositionSystem(0);
         RenderSpriteSystem renderSpriteSystem = new RenderSpriteSystem(_spriteBatch, 1);
         RenderAnimationSystem renderAnimationSystem = new RenderAnimationSystem(_spriteBatch, 3);
@@ -165,6 +171,7 @@ public class GameScreen implements Screen {
         DeathTimerSystem deathTimerSystem = new DeathTimerSystem(7);
         PlayerDataSystem playerDataSystem = new PlayerDataSystem(8);
 
+        engine.addSystem(parallaxBackgroundRenderSystem);
         engine.addSystem(positionSystem);
         engine.addSystem(renderSpriteSystem);
         engine.addSystem(renderAnimationSystem);
@@ -214,4 +221,25 @@ public class GameScreen implements Screen {
         body.createFixture(fixtureDef);
         shape.dispose();
     }
+
+    private void makeBackgroundHack() {
+        Sprite sprite = new Sprite(ResourceManager.getTexture("skybackground1"));
+        Entity entity = new Entity();
+        ParallaxBackgroundComponent backgroundComponent = new ParallaxBackgroundComponent(sprite, 1, 0.1f, GameBoardInfo.getInstance().getHeight() - Constants.SKY_HEIGHT_IN_PIXELS);
+        entity.add(backgroundComponent);
+        EntityManager.getInstance().addEntity(entity);
+
+        Sprite sprite2 = new Sprite(ResourceManager.getTexture("skybackground2"));
+        Entity entity2 = new Entity();
+        ParallaxBackgroundComponent backgroundComponent2 = new ParallaxBackgroundComponent(sprite2, 2, 0.3f, GameBoardInfo.getInstance().getHeight() - Constants.SKY_HEIGHT_IN_PIXELS);
+        entity2.add(backgroundComponent2);
+        EntityManager.getInstance().addEntity(entity2);
+
+        Sprite sprite3 = new Sprite(ResourceManager.getTexture("waterbackground1"));
+        Entity entity3 = new Entity();
+        ParallaxBackgroundComponent backgroundComponent3 = new ParallaxBackgroundComponent(sprite3, 3, 0.1f, 0f);
+        entity3.add(backgroundComponent3);
+        EntityManager.getInstance().addEntity(entity3);
+    }
+
 }

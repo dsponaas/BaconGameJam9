@@ -27,6 +27,9 @@ public class ResourceManager {
         _textures.put("explosion", new Texture("explosion.png"));
         _textures.put("enemybullet", new Texture("enemybullet.png"));
         _textures.put("playAgainButton", new Texture("playagainbutton.png"));
+        _textures.put("skybackground1", new Texture("skybackground1.png"));
+        _textures.put("skybackground2", new Texture("skybackground2.png"));
+        _textures.put("waterbackground1", new Texture("waterbackground1.png"));
 
         createSubDestroyedAnimation();
     }

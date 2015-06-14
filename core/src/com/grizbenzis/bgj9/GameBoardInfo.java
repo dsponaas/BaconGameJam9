@@ -51,7 +51,7 @@ public class GameBoardInfo {
         _rand = new Random();
         _score = 0;
         _level = 1;
-        _lives = 2;
+        _lives = 999;
         _levelTimer = Constants.LEVEL_TIME;
     }
 
