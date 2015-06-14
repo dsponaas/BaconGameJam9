@@ -24,9 +24,9 @@ public class Constants {
     //****************************************************************************
     //*********** Player Movement ************************************************
     //****************************************************************************
-    public static final float BASE_PLAYER_ACCEL = 1.0f;
-    public static final float BASE_PLAYER_MAXSPEED = 5.0f;
-    public static final float SURFACE_FRICTION = 0.5f;
+    public static final float BASE_PLAYER_ACCEL = 0.5f;
+    public static final float BASE_PLAYER_MAXSPEED = 4.0f;
+    public static final float SURFACE_FRICTION = 1f;
 
     //****************************************************************************
     //*********** Box2D Bitmasks *************************************************

@@ -43,7 +43,7 @@ public class Player extends Actor {
         Entity entity = new Entity();
 
         Sprite sprite = new Sprite(ResourceManager.getTexture("player"));
-        Vector2 position = new Vector2(GameBoardInfo.getInstance().getWidth() / 2, GameBoardInfo.getInstance().getWaterLevel() + (sprite.getHeight() / 2));
+        Vector2 position = new Vector2(GameBoardInfo.getInstance().getWidth() / 2, GameBoardInfo.getInstance().getWaterLevel() + (sprite.getHeight() / 2) + 3f);
 
         Body body = BodyFactory.getInstance().generate(entity, "player.json", position);
 
@@ -64,6 +64,8 @@ public class Player extends Actor {
             if(!_playerDataComponents.get(getEntity()).alive) {
                 getEntity().add(new DeathTimerComponent(Constants.DEATH_TIME));
                 getEntity().remove(RenderComponent.class); // TODO: we're actually probly wanna leave it there and adda fire or something but for now...
+                _leftWeapon.resetState();
+                _rightWeapon.resetState();
                 return;
             }
 
@@ -89,11 +91,11 @@ public class Player extends Actor {
         float velocity = getBody().getLinearVelocity().x;
 
         float frictionAdjustment = 0f;
-        if(Math.abs(movementInput) < 0.1f) {
-            frictionAdjustment = (float)Time.time * Constants.SURFACE_FRICTION * -1f * Math.signum(velocity);
-            if(Math.signum(frictionAdjustment + velocity) != Math.signum(velocity))
-                frictionAdjustment = -1f * velocity;
-        }
+//        if(Math.abs(movementInput) < 0.1f) {
+//            frictionAdjustment = (float)Time.time * Constants.SURFACE_FRICTION * -1f * Math.signum(velocity);
+//            if(Math.signum(frictionAdjustment + velocity) != Math.signum(velocity))
+//                frictionAdjustment = -1f * velocity;
+//        }
 
         float desiredVelocity = velocity + acceleration + frictionAdjustment;
 

@@ -88,4 +88,8 @@ public class PlayerWeapon {
 //        Gdx.app.log(Constants.LOG_TAG, "firing");
     }
 
+    public void resetState() {
+        _state.changeState(PlayerWeaponState.READY);
+    }
+
 }

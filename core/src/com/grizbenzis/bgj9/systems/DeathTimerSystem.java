@@ -7,6 +7,7 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import com.grizbenzis.bgj9.GameBoardInfo;
 import com.grizbenzis.bgj9.Time;
 import com.grizbenzis.bgj9.bgj9;
+import com.grizbenzis.bgj9.components.BodyComponent;
 import com.grizbenzis.bgj9.components.DeathTimerComponent;
 import com.grizbenzis.bgj9.screens.SplashScreen;
 
@@ -16,6 +17,7 @@ import com.grizbenzis.bgj9.screens.SplashScreen;
 public class DeathTimerSystem extends IteratingSystem {
 
     private ComponentMapper<DeathTimerComponent> _deathTimerComponents = ComponentMapper.getFor(DeathTimerComponent.class);
+    private ComponentMapper<BodyComponent> _bodyComponents = ComponentMapper.getFor(BodyComponent.class);
 
     public DeathTimerSystem(int priority) {
         super(Family.all(DeathTimerComponent.class).get(), priority);

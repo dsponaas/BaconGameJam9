@@ -64,7 +64,7 @@ public class BodyFactory {
         else if(Constants.BITMASK_EXPLOSION == categoryBits)
             maskingBits = Constants.BITMASK_ENEMY | Constants.BITMASK_ENEMY_BULLET | Constants.BITMASK_PLAYER | Constants.BITMASK_PLAYER_BULLET;
         else if(Constants.BITMASK_PLAYER == categoryBits)
-            maskingBits = Constants.BITMASK_EXPLOSION | Constants.BITMASK_LEVEL_BOUNDS;
+            maskingBits = Constants.BITMASK_EXPLOSION | Constants.BITMASK_WATER_SURFACE | Constants.BITMASK_LEVEL_BOUNDS;
         else
             maskingBits = (short)((Constants.BITMASK_PLAYER | Constants.BITMASK_ENEMY | Constants.BITMASK_LEVEL_BOUNDS | Constants.BITMASK_LOOT | Constants.BITMASK_PLAYER_BULLET) ^ categoryBits);
 
@@ -114,7 +114,7 @@ public class BodyFactory {
             fixtureDef.shape = shape;
             fixtureDef.isSensor = jsonFixture.getBoolean("isSensor");
             fixtureDef.density = jsonFixture.getFloat("density");
-            fixtureDef.friction = 0f; //jsonFixture.getFloat("friction"); TODO: dont think friction should be a factor
+            fixtureDef.friction = jsonFixture.getFloat("friction");
             fixtureDef.filter.categoryBits = categoryBits;
             fixtureDef.filter.maskBits = maskingBits;
             retval.createFixture(fixtureDef).setUserData(owner);

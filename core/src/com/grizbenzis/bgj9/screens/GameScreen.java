@@ -88,7 +88,7 @@ public class GameScreen implements Screen {
         _spriteBatch.end();
 
         EntityManager.getInstance().update();
-        _debugRenderer.render(_world, debugMatrix);
+//        _debugRenderer.render(_world, debugMatrix);
 
         renderHud();
     }
@@ -203,12 +203,12 @@ public class GameScreen implements Screen {
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.filter.categoryBits = Constants.BITMASK_WATER_SURFACE;
-        fixtureDef.filter.maskBits = Constants.BITMASK_ENEMY_BULLET;
+        fixtureDef.filter.maskBits = Constants.BITMASK_ENEMY_BULLET | Constants.BITMASK_PLAYER;
 
         EdgeShape shape = new EdgeShape();
         shape.set(x1, y1, x2, y2);
         fixtureDef.shape = shape;
-        fixtureDef.friction = 0f;
+        fixtureDef.friction = Constants.SURFACE_FRICTION;
 
         Body body = _world.createBody(bodyDef);
         body.createFixture(fixtureDef);
