@@ -12,8 +12,6 @@ import java.util.Random;
  */
 public class GameBoardInfo {
 
-    private final float ENEMY_SPAWN_TIMER_HACK = 300f;
-
     private static GameBoardInfo _instance;
     private Random _rand;
     private float _enemySpawnTimer;
@@ -32,11 +30,14 @@ public class GameBoardInfo {
 
     private int _level;
     public int getLevel()                   { return _level; }
+    public void incrementLevel()            { ++_level; }
+
+    private float _levelTimer;
 
     private int _lives;
     public int getLives()                   { return _lives; }
-    public void decrementLives()            { _lives -= 1; }
-    public void incrementLives()            { _lives += 1; }
+    public void decrementLives()            { --_lives; }
+    public void incrementLives()            { ++_lives; }
 
     private Player _player;
     public Player getPlayer()               { return _player; }
@@ -46,11 +47,12 @@ public class GameBoardInfo {
         _gameBoardWidth = width;
         _gameBoardHeight = height;
         _waterLevel = _gameBoardHeight - Constants.SKY_HEIGHT_IN_PIXELS;
-        _enemySpawnTimer = ENEMY_SPAWN_TIMER_HACK;
+        _enemySpawnTimer = getSpawnTimer();
         _rand = new Random();
         _score = 0;
         _level = 1;
         _lives = 2;
+        _levelTimer = Constants.LEVEL_TIME;
     }
 
     public static void initialize(float width, float height) {
@@ -62,6 +64,7 @@ public class GameBoardInfo {
 
     public void update() {
         _enemySpawnTimer -= (float)Time.time;
+        _levelTimer -= (float)Time.time;
         if(_enemySpawnTimer < 0f) {
             float speed = _rand.nextBoolean() ? 1f : -1f;
             float yPos = getRandomFloat(Constants.FLOOR_DETONATION_BUFFER_IN_PIXELS,
@@ -74,7 +77,11 @@ public class GameBoardInfo {
             EntityManager.getInstance().addEntity(enemyEntity);
             EntityManager.getInstance().addActor(new EnemySub(enemyEntity));
 
-            _enemySpawnTimer = ENEMY_SPAWN_TIMER_HACK;
+            _enemySpawnTimer = getSpawnTimer();
+        }
+        if(_levelTimer < 0f) {
+            _levelTimer = Constants.LEVEL_TIME;
+            incrementLevel();
         }
     }
 
@@ -90,6 +97,13 @@ public class GameBoardInfo {
 
     public void incrementScore(int val) {
         _score += val;
+    }
+
+    private float getSpawnTimer() {
+        float spawnTimer = Constants.BASE_ENEMY_SPAWN_TIMER;
+        for(int i = 1; i < _level; ++i)
+            spawnTimer *= Constants.LEVEL_ADVANCE_SPAWN_TIMER_MOD; // TODO: this is kind of terrible
+        return spawnTimer;
     }
 
 }
