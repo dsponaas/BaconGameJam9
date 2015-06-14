@@ -6,57 +6,57 @@ filter: Nearest,Nearest
 repeat: none
 ship destroyed 01
   rotate: false
-  xy: 2, 166
-  size: 260, 80
-  orig: 260, 80
+  xy: 2, 134
+  size: 208, 64
+  orig: 208, 64
   offset: 0, 0
   index: -1
 ship destroyed 02
   rotate: false
-  xy: 2, 84
-  size: 260, 80
-  orig: 260, 80
+  xy: 2, 68
+  size: 208, 64
+  orig: 208, 64
   offset: 0, 0
   index: -1
 ship destroyed 03
   rotate: false
-  xy: 264, 166
-  size: 260, 80
-  orig: 260, 80
+  xy: 212, 134
+  size: 208, 64
+  orig: 208, 64
   offset: 0, 0
   index: -1
 ship destroyed 04
   rotate: false
   xy: 2, 2
-  size: 260, 80
-  orig: 260, 80
+  size: 208, 64
+  orig: 208, 64
   offset: 0, 0
   index: -1
 ship destroyed 05
   rotate: false
-  xy: 264, 84
-  size: 260, 80
-  orig: 260, 80
+  xy: 212, 68
+  size: 208, 64
+  orig: 208, 64
   offset: 0, 0
   index: -1
 ship destroyed 06
   rotate: false
-  xy: 526, 166
-  size: 260, 80
-  orig: 260, 80
+  xy: 422, 134
+  size: 208, 64
+  orig: 208, 64
   offset: 0, 0
   index: -1
 ship destroyed 07
   rotate: false
-  xy: 264, 2
-  size: 260, 80
-  orig: 260, 80
+  xy: 212, 2
+  size: 208, 64
+  orig: 208, 64
   offset: 0, 0
   index: -1
 ship destroyed 08
   rotate: false
-  xy: 526, 84
-  size: 260, 80
-  orig: 260, 80
+  xy: 422, 68
+  size: 208, 64
+  orig: 208, 64
   offset: 0, 0
   index: -1
