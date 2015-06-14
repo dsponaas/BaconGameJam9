@@ -224,7 +224,20 @@ public class GameScreen implements Screen {
             _shapeRenderer.end();
         }
         else if(leftWeapon.getState() == PlayerWeaponState.COOLDOWN) {
+            _shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            _shapeRenderer.setColor(new Color( 0f, 0f, 0f, 0.2f));
+            _shapeRenderer.rect(leftPos.x - (width / 2f), leftPos.y, width, height);
+            _shapeRenderer.end();
 
+            _shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            _shapeRenderer.setColor( new Color( 0.3f, 0f, 0f, 0.2f ) );
+            _shapeRenderer.rect(leftPos.x - (width / 2f) + buffer, leftPos.y + buffer, width - (2f * buffer), height - (2f * buffer));
+            _shapeRenderer.end();
+
+            _shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            _shapeRenderer.setColor( new Color( 0f, 0.3f, 0f, 0.2f ) );
+            _shapeRenderer.rect(leftPos.x - (width / 2f) + buffer, leftPos.y + buffer, width - (2f * buffer), PREV_LEFT_CHARGE_HACK * (height - (2f * buffer)));
+            _shapeRenderer.end();
         }
 
         if(rightWeapon.getState() == PlayerWeaponState.CHARGING) {
@@ -245,6 +258,20 @@ public class GameScreen implements Screen {
             _shapeRenderer.end();
         }
         else if(rightWeapon.getState() == PlayerWeaponState.COOLDOWN) {
+            _shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            _shapeRenderer.setColor(new Color( 0f, 0f, 0f, 0.2f));
+            _shapeRenderer.rect(rightPos.x - (width / 2f), rightPos.y, width, height);
+            _shapeRenderer.end();
+
+            _shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            _shapeRenderer.setColor( new Color( 0.3f, 0f, 0f, 0.2f ) );
+            _shapeRenderer.rect(rightPos.x - (width / 2f) + buffer, rightPos.y + buffer, width - (2f * buffer), height - (2f * buffer));
+            _shapeRenderer.end();
+
+            _shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            _shapeRenderer.setColor( new Color( 0f, 0.3f, 0f, 0.2f ) );
+            _shapeRenderer.rect(rightPos.x - (width / 2f) + buffer, rightPos.y + buffer, width - (2f * buffer), PREV_RIGHT_CHARGE_HACK * (height - (2f * buffer)));
+            _shapeRenderer.end();
         }
 
     }
