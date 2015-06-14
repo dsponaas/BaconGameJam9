@@ -49,6 +49,7 @@ public class ResourceManager {
         _textures.put("poweruppointssmall", new Texture("poweruppointssmall.png"));
         _textures.put("powerupexplsmall", new Texture("powerupexplsmall.png"));
         _textures.put("splashscreen", new Texture("splashscreen.png"));
+        _textures.put("gameover", new Texture("gameover.png"));
 
         createSubDestroyedAnimation();
         createSub2DestroyedAnimation();

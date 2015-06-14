@@ -1,6 +1,8 @@
 package com.grizbenzis.bgj9.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -11,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
+import com.grizbenzis.bgj9.InputManager;
 import com.grizbenzis.bgj9.ResourceManager;
 import com.grizbenzis.bgj9.bgj9;
 
@@ -19,9 +22,8 @@ import com.grizbenzis.bgj9.bgj9;
  */
 public class SplashScreen implements Screen {
 
-    private Stage _stage;
     private SpriteBatch _spriteBatch;
-//    private Sprite _titleSprite;
+    private Sprite _titleSprite;
 
     private ImageButton _startButton;
 
@@ -31,8 +33,12 @@ public class SplashScreen implements Screen {
     public void show() {
         _spriteBatch = new SpriteBatch();
 
-//        _titleSprite = new Sprite(ResourceManager.getTexture("splashscreen"));
-//        _titleSprite.setPosition(0f, 0f);
+        _titleSprite = new Sprite(ResourceManager.getTexture("splashscreen"));
+        _titleSprite.setPosition(0f, 0f);
+
+        InputMultiplexer inputMultiplexer = new InputMultiplexer();
+        inputMultiplexer.addProcessor(new SimpleInput());
+        Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
     @Override
@@ -40,15 +46,14 @@ public class SplashScreen implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        _stage.act(delta);
         _spriteBatch.begin();
-//        _titleSprite.draw(_spriteBatch);
-        _stage.draw();
+        _titleSprite.draw(_spriteBatch);
         _spriteBatch.end();
     }
 
     @Override
     public void resize(int width, int height) {
+/*
         if(null == _stage)
             _stage = new Stage();
         _stage.clear();
@@ -69,6 +74,7 @@ public class SplashScreen implements Screen {
         });
 
         _stage.addActor(_startButton);
+*/
     }
 
     @Override
@@ -88,8 +94,51 @@ public class SplashScreen implements Screen {
 
     @Override
     public void dispose() {
-        _stage.dispose();
         _spriteBatch.dispose();
+    }
+
+    public class SimpleInput implements InputProcessor {
+
+        @Override
+        public boolean keyDown(int keycode) {
+            bgj9.game.setScreen(new GameScreen());
+            return true;
+        }
+
+        @Override
+        public boolean keyUp(int keycode) {
+            return false;
+        }
+
+        @Override
+        public boolean keyTyped(char character) {
+            return false;
+        }
+
+        @Override
+        public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+            return false;
+        }
+
+        @Override
+        public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+            return false;
+        }
+
+        @Override
+        public boolean touchDragged(int screenX, int screenY, int pointer) {
+            return false;
+        }
+
+        @Override
+        public boolean mouseMoved(int screenX, int screenY) {
+            return false;
+        }
+
+        @Override
+        public boolean scrolled(int amount) {
+            return false;
+        }
     }
 
 }

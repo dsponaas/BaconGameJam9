@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1024"
+   height="768"
+   viewBox="0 0 1024 768.00001"
+   id="svg11017"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="gameover.svg">
+  <defs
+     id="defs11019" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.49497475"
+     inkscape:cx="326.55077"
+     inkscape:cy="337.24389"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     borderlayer="true"
+     inkscape:window-width="1440"
+     inkscape:window-height="775"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     units="px" />
+  <metadata
+     id="metadata11022">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-284.36207)">
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1"
+       id="rect11033"
+       width="1348.424"
+       height="924.3396"
+       x="-69.28508"
+       y="271.96048"
+       rx="4.0759444"
+       ry="4.0759444" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:128.37590027px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="97.367325"
+       y="482.17691"
+       id="text11575"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan11577"
+         x="97.367325"
+         y="482.17691">GAME OVER</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:36.8944397px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="229.75165"
+       y="952.59174"
+       id="text11579"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan11581"
+         x="229.75165"
+         y="952.59174">Press any key to play again!</tspan></text>
+    <g
+       id="g11604"
+       transform="matrix(0.25474652,0,0,0.19401225,43.837914,738.31074)">
+      <rect
+         ry="16"
+         rx="16"
+         y="-713.35211"
+         x="1068.5714"
+         height="862.85712"
+         width="1371.4286"
+         id="rect11587"
+         style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-opacity:1" />
+      <rect
+         ry="15.237528"
+         rx="15.4"
+         y="-692.23303"
+         x="1091.4286"
+         height="821.7381"
+         width="1320.0001"
+         id="rect11587-2"
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:74.3885498px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="360.36264"
+       y="684.10236"
+       id="text11583"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan11585"
+         x="360.36264"
+         y="684.10236">SCORE</tspan></text>
+  </g>
+</svg>
