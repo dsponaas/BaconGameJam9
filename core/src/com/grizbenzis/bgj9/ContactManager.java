@@ -41,12 +41,12 @@ public class ContactManager implements ContactListener {
         if((Constants.BITMASK_EXPLOSION == fixtureAType) && (Constants.BITMASK_ENEMY == fixtureBType)) {
             EnemyDataComponent enemyDataComponent = (EnemyDataComponent)entityB.remove(EnemyDataComponent.class);
             if(null != enemyDataComponent)
-                collideExplosionAndEnemy(fixtureB, bodyB, enemyDataComponent);
+                collideExplosionAndEnemy(fixtureB, bodyB, enemyDataComponent, entityB);
         }
         else if((Constants.BITMASK_EXPLOSION == fixtureBType) && (Constants.BITMASK_ENEMY == fixtureAType)) {
             EnemyDataComponent enemyDataComponent = (EnemyDataComponent)entityA.remove(EnemyDataComponent.class);
             if(null != enemyDataComponent)
-                collideExplosionAndEnemy(fixtureA, bodyA, enemyDataComponent);
+                collideExplosionAndEnemy(fixtureA, bodyA, enemyDataComponent, entityA);
         }
 
         // *************************************** ENEMYBULLET <=> LEVELBOUNDS ********************************
@@ -61,7 +61,7 @@ public class ContactManager implements ContactListener {
     }
 
     // TODO: this shouldnt really be here but i'll probly end up cutting corners and leaving it anyways
-    private void collideExplosionAndEnemy(Fixture fixture, Body body, EnemyDataComponent enemyData) {
+    private void collideExplosionAndEnemy(Fixture fixture, Body body, EnemyDataComponent enemyData, Entity entity) {
         Filter filter = fixture.getFilterData();
         filter.maskBits = 0;
         fixture.setFilterData(filter);
@@ -71,6 +71,13 @@ public class ContactManager implements ContactListener {
         Vector2 impulse = new Vector2(desiredVelocity.x * mass, desiredVelocity.y * mass);
 
         body.applyLinearImpulse(impulse.x, impulse.y, body.getWorldCenter().x, body.getWorldCenter().y, true);
+
+        // Remove sprite and add animation component
+        entity.remove(SpriteComponent.class);
+
+        AnimationComponent animationComponent = new AnimationComponent(ResourceManager.getSubDestroyedAnimation());
+        entity.add(animationComponent);
+
 
         // TODO: add in a depth bonus as well
         GameBoardInfo.getInstance().incrementScore(enemyData.score);

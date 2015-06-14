@@ -12,13 +12,13 @@ import com.grizbenzis.bgj9.components.SpriteComponent;
 /**
  * Created by sponaas on 6/12/15.
  */
-public class RenderSystem extends SortedIteratingSystem {
+public class RenderSpriteSystem extends SortedIteratingSystem {
 
     private SpriteBatch _spriteBatch;
 
     private ComponentMapper<SpriteComponent> _spriteComponents = ComponentMapper.getFor(SpriteComponent.class);
 
-    public RenderSystem(SpriteBatch spriteBatchInit, int priority) {
+    public RenderSpriteSystem(SpriteBatch spriteBatchInit, int priority) {
         super(Family.all(RenderComponent.class, SpriteComponent.class, PositionComponent.class).get(), new RenderSystemZComparator(), priority);
         _spriteBatch = spriteBatchInit;
     }

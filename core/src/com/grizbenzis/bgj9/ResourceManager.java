@@ -53,7 +53,7 @@ public class ResourceManager {
                                                         frame7, frame8, frame9, frame10, frame11
                                                     };
 
-        _subDesroyedAnimation = new Animation(0.15f, frames);
+        _subDesroyedAnimation = new Animation(2f, frames);
     }
 
     public static Animation getSubDestroyedAnimation() { return _subDesroyedAnimation; }
