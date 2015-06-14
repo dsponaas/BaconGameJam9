@@ -1,5 +1,6 @@
 package com.grizbenzis.bgj9.actors;
 
+import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.fsm.DefaultStateMachine;
@@ -15,6 +16,9 @@ import com.grizbenzis.bgj9.components.*;
  * Created by sponaas on 6/12/15.
  */
 public class Player extends Actor {
+
+    private ComponentMapper<PlayerDataComponent> _playerDataComponents = ComponentMapper.getFor(PlayerDataComponent.class);
+    private ComponentMapper<DeathTimerComponent> _deathTimerComponents = ComponentMapper.getFor(DeathTimerComponent.class);
 
     private PlayerWeapon _leftWeapon;
     private PlayerWeapon _rightWeapon;
@@ -47,17 +51,29 @@ public class Player extends Actor {
         BodyComponent playerBodyComponent = new BodyComponent(playerPositionComponent, body);
         SpriteComponent playerRenderComponent = new SpriteComponent(sprite);
         RenderComponent renderComponent = new RenderComponent(0);
+        PlayerDataComponent playerDataComponent = new PlayerDataComponent();
 
-        entity.add(playerPositionComponent).add(playerBodyComponent).add(playerRenderComponent).add(renderComponent);
+        entity.add(playerPositionComponent).add(playerBodyComponent).add(playerRenderComponent).add(renderComponent).add(playerDataComponent);
         return entity;
     }
 
     @Override
     public void update() {
-        _leftWeapon.update(InputManager.fireLeftActive);
-        _rightWeapon.update(InputManager.fireRightActive);
+        DeathTimerComponent deathTimerComponent = _deathTimerComponents.get(getEntity());
+        if(deathTimerComponent == null) {
+            if(!_playerDataComponents.get(getEntity()).alive) {
+                getEntity().add(new DeathTimerComponent(Constants.DEATH_TIME));
+                return;
+            }
 
-        updateMovement();
+            _leftWeapon.update(InputManager.fireLeftActive);
+            _rightWeapon.update(InputManager.fireRightActive);
+
+            updateMovement();
+        }
+        else if(deathTimerComponent.timer < 0f) {
+            spawnPlayer();
+        }
     }
 
     private void updateMovement() {
@@ -97,6 +113,14 @@ public class Player extends Actor {
         float halfSizeY = sizeY / 2;
         PositionComponent positionComponent = getPosition();
         return new Vector2(positionComponent.x + halfSizeX, positionComponent.y + halfSizeY);
+    }
+
+    private void spawnPlayer() {
+        getEntity().remove(DeathTimerComponent.class);
+        PlayerDataComponent playerDataComponent = _playerDataComponents.get(getEntity());
+        playerDataComponent.invincibilityTime = Constants.INVINCIBILITY_TIME;
+        playerDataComponent.alive = true;
+        // TODO: stuff?
     }
 
 }

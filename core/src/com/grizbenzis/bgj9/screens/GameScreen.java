@@ -21,7 +21,6 @@ import com.grizbenzis.bgj9.systems.*;
  */
 public class GameScreen implements Screen {
 
-    private bgj9 _game;
     private Engine _engine;
     private OrthographicCamera _camera;
     private World _world;
@@ -35,9 +34,7 @@ public class GameScreen implements Screen {
 
     private Box2DDebugRenderer _debugRenderer;
 
-    public GameScreen(bgj9 game) {
-        _game = game;
-    }
+    public GameScreen() {}
 
     @Override
     public void show() {
@@ -151,7 +148,8 @@ public class GameScreen implements Screen {
         float scoreIconXPos = 4f; // lil bit of padding here...
         int level = GameBoardInfo.getInstance().getLevel();
         int score = GameBoardInfo.getInstance().getScore();
-        hudFont.draw(_hudBatch, "LEVEL: " + level + "   SCORE: " + score, scoreIconXPos, (float) Gdx.graphics.getHeight() - 4f); // TODO: actually show the score
+        int lives = GameBoardInfo.getInstance().getLives();
+        hudFont.draw(_hudBatch, "LIVES: " + lives + "   LEVEL: " + level + "   SCORE: " + score, scoreIconXPos, (float) Gdx.graphics.getHeight() - 4f); // TODO: actually show the score
         _hudBatch.end();
     }
 
@@ -160,18 +158,21 @@ public class GameScreen implements Screen {
 
         PositionSystem positionSystem = new PositionSystem(0);
         RenderSpriteSystem renderSpriteSystem = new RenderSpriteSystem(_spriteBatch, 1);
-        RenderAnimationSystem renderAnimationSystem = new RenderAnimationSystem(_spriteBatch, 2);
-        DepthChargeSystem depthChargeSystem = new DepthChargeSystem(3);
-        BulletSystem bulletSystem = new BulletSystem(4);
-        ExplosionSystem explosionSystem = new ExplosionSystem(5);
+        RenderAnimationSystem renderAnimationSystem = new RenderAnimationSystem(_spriteBatch, 3);
+        DepthChargeSystem depthChargeSystem = new DepthChargeSystem(4);
+        BulletSystem bulletSystem = new BulletSystem(5);
+        ExplosionSystem explosionSystem = new ExplosionSystem(6);
+        DeathTimerSystem deathTimerSystem = new DeathTimerSystem(7);
+        PlayerDataSystem playerDataSystem = new PlayerDataSystem(8);
 
         engine.addSystem(positionSystem);
         engine.addSystem(renderSpriteSystem);
         engine.addSystem(renderAnimationSystem);
-
         engine.addSystem(depthChargeSystem);
         engine.addSystem(bulletSystem);
         engine.addSystem(explosionSystem);
+        engine.addSystem(deathTimerSystem);
+        engine.addSystem(playerDataSystem);
 
         return engine;
     }

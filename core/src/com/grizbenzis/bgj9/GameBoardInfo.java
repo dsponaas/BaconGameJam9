@@ -33,6 +33,11 @@ public class GameBoardInfo {
     private int _level;
     public int getLevel()                   { return _level; }
 
+    private int _lives;
+    public int getLives()                   { return _lives; }
+    public void decrementLives()            { _lives -= 1; }
+    public void incrementLives()            { _lives += 1; }
+
     private Player _player;
     public Player getPlayer()               { return _player; }
     public void setPlayer(Player player)    { _player = player; }
@@ -45,6 +50,7 @@ public class GameBoardInfo {
         _rand = new Random();
         _score = 0;
         _level = 1;
+        _lives = 2;
     }
 
     public static void initialize(float width, float height) {

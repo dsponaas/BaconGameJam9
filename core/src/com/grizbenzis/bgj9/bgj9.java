@@ -12,10 +12,13 @@ public class bgj9 extends Game {
 //	SpriteBatch batch;
 //	Texture img;
 
+	public static bgj9 game;
+
 	@Override
 	public void create() {
+		game = this;
 		ResourceManager.initialize();
-		setScreen(new SplashScreen(this));
+		setScreen(new SplashScreen());
 	}
 
 	@Override
