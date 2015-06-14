@@ -1,5 +1,7 @@
 package com.grizbenzis.bgj9;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -21,6 +23,8 @@ public class ResourceManager {
     private static TextureAtlas _sub2DestroyedAtlas;
     private static Animation _sub2DestroyedAnimation;
     private static Animation _sub2DestroyedFlippedAnimation;
+
+    private static Music _gameMusic;
 
     public static void initialize() {
         _textures = new HashMap<String, Texture>();
@@ -49,6 +53,9 @@ public class ResourceManager {
         createSub2DestroyedAnimation();
         createSubDestroyedFlippedAnimation();
         createSub2DestroyedFlippedAnimation();
+
+        _gameMusic = Gdx.audio.newMusic(Gdx.files.internal("test4_looping.ogg"));
+        _gameMusic.setLooping( true );
     }
 
     public static Texture getTexture(String name) {
@@ -175,4 +182,8 @@ public class ResourceManager {
     public static Animation getSub2DestroyedAnimation() { return _sub2DestroyedAnimation; }
     public static Animation getSubDestroyedFlippedAnimation() { return _subDestroyedFlippedAnimation; }
     public static Animation getSub2DestroyedFlippedAnimation() { return _sub2DestroyedFlippedAnimation; }
+
+    public static Music getGameMusic() {
+        return _gameMusic;
+    }
 }

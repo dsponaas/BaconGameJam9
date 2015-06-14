@@ -73,6 +73,8 @@ public class GameScreen implements Screen {
         Gdx.input.setInputProcessor(inputMultiplexer);
 
         _shapeRenderer = new ShapeRenderer();
+
+        ResourceManager.getGameMusic().play();
     }
 
     @Override
@@ -156,6 +158,7 @@ public class GameScreen implements Screen {
         _world.dispose();
         _spriteBatch.dispose();
         _hudBatch.dispose();
+        _shapeRenderer.dispose();
     }
 
     private void renderHud() {

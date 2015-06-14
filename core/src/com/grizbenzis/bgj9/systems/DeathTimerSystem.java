@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.grizbenzis.bgj9.GameBoardInfo;
+import com.grizbenzis.bgj9.ResourceManager;
 import com.grizbenzis.bgj9.Time;
 import com.grizbenzis.bgj9.bgj9;
 import com.grizbenzis.bgj9.components.BodyComponent;
@@ -30,6 +31,7 @@ public class DeathTimerSystem extends IteratingSystem {
 
         if(deathTimerComponent.timer < 0f) {
             if(GameBoardInfo.getInstance().getLives() == 0) {
+                ResourceManager.getGameMusic().stop();
                 bgj9.game.setScreen(new GameOverScreen());
             }
             else {
