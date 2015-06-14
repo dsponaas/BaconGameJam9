@@ -478,25 +478,25 @@
        ry="16" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:43.33361816px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="513.20673"
-       y="868.58551"
-       id="text11009"
+       style="font-style:normal;font-weight:normal;font-size:47.61216354px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="516.23438"
+       y="873.3399"
+       id="text11025"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
-         id="tspan11011"
-         x="513.20673"
-         y="868.58551">CLICK ANYWHERE</tspan></text>
+         id="tspan11027"
+         x="516.23438"
+         y="873.3399">PRESS ANY KEY</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:43.33361816px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="624.24988"
-       y="924.37726"
-       id="text11013"
+       style="font-style:normal;font-weight:normal;font-size:47.61216354px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="591.43835"
+       y="922.30988"
+       id="text11029"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
-         id="tspan11015"
-         x="624.24988"
-         y="924.37726">TO PLAY!</tspan></text>
+         id="tspan11031"
+         x="591.43835"
+         y="922.30988">TO PLAY!</tspan></text>
   </g>
 </svg>
