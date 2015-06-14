@@ -12,13 +12,13 @@
       description: none,
       isSensor: false,
       type: RectangleShape,
-      width: 130,
-      height: 40,
+      width: 120,
+      height: 12,
       density: 1,
       friction: 0,
       restitution: 0,
       x: 0,
-      y: 0
+      y: 14
     }
   ]
 }

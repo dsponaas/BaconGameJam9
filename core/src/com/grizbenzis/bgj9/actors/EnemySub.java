@@ -17,6 +17,7 @@ public class EnemySub extends Actor {
     private ComponentMapper<EnemyDataComponent> _enemyDataComponents = ComponentMapper.getFor(EnemyDataComponent.class);
     private ComponentMapper<PositionComponent> _positionComponents = ComponentMapper.getFor(PositionComponent.class);
     private ComponentMapper<PlayerDataComponent> _playerDataComponents = ComponentMapper.getFor(PlayerDataComponent.class);
+    private ComponentMapper<BodyComponent> _bodyComponents = ComponentMapper.getFor(BodyComponent.class);
 
     private final float SHOT_TIMER_HACK = 180f;
 
@@ -72,6 +73,10 @@ public class EnemySub extends Actor {
             body = BodyFactory.getInstance().generate(entity, "enemy2.json", position);
         }
 
+        if (xVel > 0f) {
+            sprite.flip(true, false);
+        }
+
         PositionComponent positionComponent = new PositionComponent(position.x, position.y);
         BodyComponent bodyComponent = new BodyComponent(positionComponent, body);
         SpriteComponent spriteComponent = new SpriteComponent(sprite);
@@ -100,12 +105,30 @@ public class EnemySub extends Actor {
         }
 
         EnemyDataComponent enemyDataComponent = _enemyDataComponents.get(getEntity());
+        BodyComponent enemyBodyComponent = _bodyComponents.get(getEntity());
+
+        // Determine direction of enemy travel
+        Body enemyBody = enemyBodyComponent.body;
+        Vector2 enemyVelocity = enemyBody.getLinearVelocity();
 
         Entity bulletEntity = new Entity();
         SpriteComponent bulletSprite = new SpriteComponent(new Sprite(ResourceManager.getTexture("enemybullet")));
         Vector2 pos = new Vector2(getPosition().x, getPosition().y);
 
-        PositionComponent bulletPosition = new PositionComponent(pos.x, pos.y);
+        // HACK for changing bullet origin
+        PositionComponent bulletPosition;
+        if (enemyVelocity.x > 0f) {
+            if (enemyDataComponent.enemyType == EnemyType.Type1){
+                bulletPosition = new PositionComponent(pos.x + 200, pos.y);
+            }
+            else {
+                bulletPosition = new PositionComponent(pos.x + 260, pos.y);
+            }
+        }
+        else {
+            bulletPosition = new PositionComponent(pos.x, pos.y);
+        }
+
         Body body = BodyFactory.getInstance().generate(bulletEntity, "enemybullet.json", new Vector2(pos.x, pos.y));
         BodyComponent bulletBody = new BodyComponent(bulletPosition, body);
         RenderComponent renderComponent = new RenderComponent(0);

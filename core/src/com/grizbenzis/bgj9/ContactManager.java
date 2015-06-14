@@ -3,6 +3,7 @@ package com.grizbenzis.bgj9;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.grizbenzis.bgj9.actors.EnemyType;
@@ -85,6 +86,10 @@ public class ContactManager implements ContactListener {
         filter.maskBits = 0;
         fixture.setFilterData(filter);
 
+        // Get current enemy velocity
+        Vector2 enemyVelocity = body.getLinearVelocity();
+        boolean flipped = enemyVelocity.x > 0f;
+
         Vector2 desiredVelocity = body.getLinearVelocity().scl(-1f).add(0f, -3f);
         float mass = body.getMass();
         Vector2 impulse = new Vector2(desiredVelocity.x * mass, desiredVelocity.y * mass);
@@ -95,12 +100,24 @@ public class ContactManager implements ContactListener {
         entity.remove(SpriteComponent.class);
 
         if (enemyData.enemyType == EnemyType.Type1) {
-            AnimationComponent animationComponent = new AnimationComponent(ResourceManager.getSubDestroyedAnimation());
-            entity.add(animationComponent);
+            if (flipped) {
+                AnimationComponent animationComponent = new AnimationComponent(ResourceManager.getSubDestroyedFlippedAnimation());
+                entity.add(animationComponent);
+            }
+            else {
+                AnimationComponent animationComponent = new AnimationComponent(ResourceManager.getSubDestroyedAnimation());
+                entity.add(animationComponent);
+            }
         }
         else {
-            AnimationComponent animationComponent = new AnimationComponent(ResourceManager.getSub2DestroyedAnimation());
-            entity.add(animationComponent);
+            if (flipped) {
+                AnimationComponent animationComponent = new AnimationComponent(ResourceManager.getSub2DestroyedFlippedAnimation());
+                entity.add(animationComponent);
+            }
+            else {
+                AnimationComponent animationComponent = new AnimationComponent(ResourceManager.getSub2DestroyedAnimation());
+                entity.add(animationComponent);
+            }
         }
 
         // TODO: add in a depth bonus as well
