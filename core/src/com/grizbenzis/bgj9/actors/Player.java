@@ -43,6 +43,7 @@ public class Player extends Actor {
         Sprite sprite = new Sprite(ResourceManager.getTexture("player"));
         SpriteComponent spriteComponent = new SpriteComponent(sprite);
         Vector2 position = getStartPos(spriteComponent);
+        position.y -= 27f;
 
         Body body = BodyFactory.getInstance().generate(entity, "player.json", position);
 
