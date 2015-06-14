@@ -20,16 +20,13 @@ import com.grizbenzis.bgj9.bgj9;
  */
 public class SplashScreen implements Screen {
 
-    private bgj9 _game;
     private Stage _stage;
     private SpriteBatch _spriteBatch;
     private Sprite _titleSprite;
 
     private ImageButton _startButton;
 
-    public SplashScreen(bgj9 game) {
-        _game = game;
-    }
+    public SplashScreen() {}
 
     @Override
     public void show() {
@@ -70,7 +67,7 @@ public class SplashScreen implements Screen {
                 return true;
             }
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                _game.setScreen(new GameScreen(_game));
+                bgj9.game.setScreen(new GameScreen());
             }
         });
 

@@ -58,6 +58,16 @@ public class ContactManager implements ContactListener {
             BulletComponent bulletComponent = entityB.getComponent(BulletComponent.class);
             bulletComponent.detonate = true;
         }
+
+        // *************************************** EXPLOSION <=> PLAYER ***************************************
+        else if((Constants.BITMASK_EXPLOSION == fixtureAType) && (Constants.BITMASK_PLAYER == fixtureBType)) {
+            PlayerDataComponent playerDataComponent = entityB.getComponent(PlayerDataComponent.class);
+            playerDataComponent.alive = false;
+        }
+        else if((Constants.BITMASK_EXPLOSION == fixtureBType) && (Constants.BITMASK_PLAYER == fixtureAType)) {
+            PlayerDataComponent playerDataComponent = entityA.getComponent(PlayerDataComponent.class);
+            playerDataComponent.alive = false;
+        }
     }
 
     // TODO: this shouldnt really be here but i'll probly end up cutting corners and leaving it anyways

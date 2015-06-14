@@ -28,7 +28,6 @@ import com.grizbenzis.bgj9.systems.*;
  */
 public class GameScreen implements Screen {
 
-    private bgj9 _game;
     private Engine _engine;
     private OrthographicCamera _camera;
     private World _world;
@@ -42,9 +41,7 @@ public class GameScreen implements Screen {
 
     private Box2DDebugRenderer _debugRenderer;
 
-    public GameScreen(bgj9 game) {
-        _game = game;
-    }
+    public GameScreen() {}
 
     @Override
     public void show() {
@@ -158,7 +155,8 @@ public class GameScreen implements Screen {
         float scoreIconXPos = 4f; // lil bit of padding here...
         int level = GameBoardInfo.getInstance().getLevel();
         int score = GameBoardInfo.getInstance().getScore();
-        hudFont.draw(_hudBatch, "LEVEL: " + level + "   SCORE: " + score, scoreIconXPos, (float) Gdx.graphics.getHeight() - 4f); // TODO: actually show the score
+        int lives = GameBoardInfo.getInstance().getLives();
+        hudFont.draw(_hudBatch, "LIVES: " + lives + "   LEVEL: " + level + "   SCORE: " + score, scoreIconXPos, (float) Gdx.graphics.getHeight() - 4f); // TODO: actually show the score
         _hudBatch.end();
     }
 
@@ -170,12 +168,16 @@ public class GameScreen implements Screen {
         DepthChargeSystem depthChargeSystem = new DepthChargeSystem(2);
         BulletSystem bulletSystem = new BulletSystem(3);
         ExplosionSystem explosionSystem = new ExplosionSystem(4);
+        DeathTimerSystem deathTimerSystem = new DeathTimerSystem(5);
+        PlayerDataSystem playerDataSystem = new PlayerDataSystem(6);
 
         engine.addSystem(positionSystem);
         engine.addSystem(renderSystem);
         engine.addSystem(depthChargeSystem);
         engine.addSystem(bulletSystem);
         engine.addSystem(explosionSystem);
+        engine.addSystem(deathTimerSystem);
+        engine.addSystem(playerDataSystem);
 
         return engine;
     }
