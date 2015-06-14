@@ -113,21 +113,23 @@ public class EnemySub extends Actor {
 
         Entity bulletEntity = new Entity();
         SpriteComponent bulletSprite = new SpriteComponent(new Sprite(ResourceManager.getTexture("enemybullet")));
-        Vector2 pos = new Vector2(getPosition().x, getPosition().y);
 
         // HACK for changing bullet origin
+        Vector2 pos;
         PositionComponent bulletPosition;
         if (enemyVelocity.x > 0f) {
             if (enemyDataComponent.enemyType == EnemyType.Type1){
-                bulletPosition = new PositionComponent(pos.x + 200, pos.y);
+                pos = new Vector2(getPosition().x + 200, getPosition().y);
             }
             else {
-                bulletPosition = new PositionComponent(pos.x + 260, pos.y);
+                pos = new Vector2(getPosition().x + 260, getPosition().y);
             }
         }
         else {
-            bulletPosition = new PositionComponent(pos.x, pos.y);
+            pos = new Vector2(getPosition().x, getPosition().y);
         }
+
+        bulletPosition = new PositionComponent(pos.x, pos.y);
 
         Body body = BodyFactory.getInstance().generate(bulletEntity, "enemybullet.json", new Vector2(pos.x, pos.y));
         BodyComponent bulletBody = new BodyComponent(bulletPosition, body);
