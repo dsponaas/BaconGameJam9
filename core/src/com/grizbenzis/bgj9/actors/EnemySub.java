@@ -55,19 +55,28 @@ public class EnemySub extends Actor {
         }
     }
 
-    public static Entity makeEnemyEntity(float xPos, float yPos, float xVel) {
+    public static Entity makeEnemyEntity(float xPos, float yPos, float xVel, EnemyType enemyType) {
         Entity entity = new Entity();
 
-        Sprite sprite = new Sprite(ResourceManager.getTexture("enemy"));
         Vector2 position = new Vector2(xPos, yPos);
 
-        Body body = BodyFactory.getInstance().generate(entity, "enemy.json", position);
+        Sprite sprite;
+        Body body;
+
+        if (enemyType == EnemyType.Type1) {
+            sprite = new Sprite(ResourceManager.getTexture("enemy"));
+            body = BodyFactory.getInstance().generate(entity, "enemy.json", position);
+        }
+        else {
+            sprite = new Sprite(ResourceManager.getTexture("enemy2"));
+            body = BodyFactory.getInstance().generate(entity, "enemy2.json", position);
+        }
 
         PositionComponent positionComponent = new PositionComponent(position.x, position.y);
         BodyComponent bodyComponent = new BodyComponent(positionComponent, body);
         SpriteComponent spriteComponent = new SpriteComponent(sprite);
         RenderComponent renderComponent = new RenderComponent(0);
-        EnemyDataComponent enemyDataComponent = new EnemyDataComponent(10);
+        EnemyDataComponent enemyDataComponent = new EnemyDataComponent(10, enemyType);
 
         entity.add(positionComponent).add(bodyComponent).add(spriteComponent).add(renderComponent).add(enemyDataComponent);
 
@@ -90,6 +99,8 @@ public class EnemySub extends Actor {
             return;
         }
 
+        EnemyDataComponent enemyDataComponent = _enemyDataComponents.get(getEntity());
+
         Entity bulletEntity = new Entity();
         SpriteComponent bulletSprite = new SpriteComponent(new Sprite(ResourceManager.getTexture("enemybullet")));
         Vector2 pos = new Vector2(getPosition().x, getPosition().y);
@@ -104,7 +115,14 @@ public class EnemySub extends Actor {
         EntityManager.getInstance().addEntity(bulletEntity);
 
         float mass = body.getMass();
-        Vector2 shotDirection = GameBoardInfo.getInstance().getPlayer().getCenterPos().sub(pos).nor().scl(SHOT_SPEED_HACK);
+        Vector2 shotDirection;
+
+        if (enemyDataComponent.enemyType == EnemyType.Type1){
+            shotDirection = GameBoardInfo.getInstance().getPlayer().getCenterPos().sub(pos).nor().scl(SHOT_SPEED_HACK);
+        }
+        else {
+            shotDirection = new Vector2(0f, 1f).nor().scl(SHOT_SPEED_HACK);
+        }
 
 //        Vector2 impulse = new Vector2(direction * mass, 2f);
         Vector2 impulse = new Vector2(shotDirection.x * mass, shotDirection.y * mass);

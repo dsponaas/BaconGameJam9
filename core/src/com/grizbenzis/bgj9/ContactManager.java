@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.grizbenzis.bgj9.actors.EnemyType;
 import com.grizbenzis.bgj9.components.*;
 
 /**
@@ -93,9 +94,14 @@ public class ContactManager implements ContactListener {
         // Remove sprite and add animation component
         entity.remove(SpriteComponent.class);
 
-        AnimationComponent animationComponent = new AnimationComponent(ResourceManager.getSubDestroyedAnimation());
-        entity.add(animationComponent);
-
+        if (enemyData.enemyType == EnemyType.Type1) {
+            AnimationComponent animationComponent = new AnimationComponent(ResourceManager.getSubDestroyedAnimation());
+            entity.add(animationComponent);
+        }
+        else {
+            AnimationComponent animationComponent = new AnimationComponent(ResourceManager.getSub2DestroyedAnimation());
+            entity.add(animationComponent);
+        }
 
         // TODO: add in a depth bonus as well
         GameBoardInfo.getInstance().incrementScore(enemyData.score);

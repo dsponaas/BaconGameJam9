@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.grizbenzis.bgj9.actors.Actor;
 import com.grizbenzis.bgj9.actors.EnemySub;
+import com.grizbenzis.bgj9.actors.EnemyType;
 import com.grizbenzis.bgj9.actors.Player;
 import com.grizbenzis.bgj9.components.*;
 
@@ -20,6 +21,7 @@ public class GameBoardInfo {
     private static GameBoardInfo _instance;
     private Random _rand;
     private float _enemySpawnTimer;
+    private EnemyType _nextEnemyType;
 
     private float _gameBoardWidth;
     public float getWidth()                 { return _gameBoardWidth; }
@@ -58,6 +60,7 @@ public class GameBoardInfo {
         _gameBoardHeight = height;
         _waterLevel = _gameBoardHeight - Constants.SKY_HEIGHT_IN_PIXELS;
         _enemySpawnTimer = getSpawnTimer();
+        _nextEnemyType = EnemyType.Type1;
         _rand = new Random();
         _score = 0;
         _level = 1;
@@ -85,11 +88,12 @@ public class GameBoardInfo {
                     0f :
                     _gameBoardWidth;
 
-            Entity enemyEntity = EnemySub.makeEnemyEntity(xPos, yPos, speed);
+            Entity enemyEntity = EnemySub.makeEnemyEntity(xPos, yPos, speed, _nextEnemyType);
             EntityManager.getInstance().addEntity(enemyEntity);
             EntityManager.getInstance().addActor(new EnemySub(enemyEntity));
 
             _enemySpawnTimer = getSpawnTimer();
+            _nextEnemyType = _nextEnemyType == EnemyType.Type1 ? EnemyType.Type2 : EnemyType.Type1;
         }
         if(_levelTimer < 0f) {
             _levelTimer = Constants.LEVEL_TIME;
