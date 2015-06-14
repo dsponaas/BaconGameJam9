@@ -2,7 +2,6 @@ package com.grizbenzis.bgj9.components;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 
 /**
  * Created by kyle on 6/12/15.

@@ -7,7 +7,6 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import com.grizbenzis.bgj9.EntityManager;
 import com.grizbenzis.bgj9.Time;
 import com.grizbenzis.bgj9.components.ExplosionComponent;
-import com.grizbenzis.bgj9.components.PositionComponent;
 
 /**
  * Created by sponaas on 6/13/15.

@@ -2,8 +2,6 @@ package com.grizbenzis.bgj9.actors;
 
 import com.badlogic.gdx.ai.fsm.State;
 import com.badlogic.gdx.ai.msg.Telegram;
-import com.grizbenzis.bgj9.Constants;
-import com.grizbenzis.bgj9.Time;
 
 /**
  * Created by sponaas on 6/12/15.

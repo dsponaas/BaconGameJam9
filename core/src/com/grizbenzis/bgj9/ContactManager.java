@@ -3,13 +3,9 @@ package com.grizbenzis.bgj9;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.grizbenzis.bgj9.components.*;
-
-import javax.swing.text.Position;
 
 /**
  * Created by sponaas on 6/13/15.

@@ -10,7 +10,6 @@ import com.grizbenzis.bgj9.bgj9;
 import com.grizbenzis.bgj9.components.BodyComponent;
 import com.grizbenzis.bgj9.components.DeathTimerComponent;
 import com.grizbenzis.bgj9.screens.GameOverScreen;
-import com.grizbenzis.bgj9.screens.SplashScreen;
 
 /**
  * Created by sponaas on 6/13/15.
