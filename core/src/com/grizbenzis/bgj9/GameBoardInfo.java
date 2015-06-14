@@ -139,7 +139,18 @@ public class GameBoardInfo {
         float xPos = getRandomFloat(0f + Constants.FLOOR_DETONATION_BUFFER_IN_PIXELS, _gameBoardWidth - Constants.FLOOR_DETONATION_BUFFER_IN_PIXELS);
         float yPos = getRandomFloat(0f + Constants.FLOOR_DETONATION_BUFFER_IN_PIXELS, _gameBoardHeight - Constants.SKY_HEIGHT_IN_PIXELS - Constants.FLOOR_DETONATION_BUFFER_IN_PIXELS);
         PositionComponent positionComponent = new PositionComponent(xPos, yPos);
-        SpriteComponent spriteComponent = new SpriteComponent(new Sprite(ResourceManager.getTexture("garbypowerup")));
+
+        Sprite sprite = null;
+        if(type == Constants.PowerupType.EXPLOSION_UP.ordinal())
+            sprite = new Sprite(ResourceManager.getTexture("powerupexpl"));
+        else if(type == Constants.PowerupType.POINTS_2X.ordinal())
+            sprite = new Sprite(ResourceManager.getTexture("poweruppoints"));
+        else if(type == Constants.PowerupType.SPEED_UP.ordinal())
+            sprite = new Sprite(ResourceManager.getTexture("powerupspd"));
+        else if(type == Constants.PowerupType.EXTRA_LIFE.ordinal())
+            sprite = new Sprite(ResourceManager.getTexture("powerup1up"));
+
+        SpriteComponent spriteComponent = new SpriteComponent(sprite);
         BodyComponent bodyComponent = new BodyComponent(positionComponent, BodyFactory.getInstance().generate(entity, "powerup.json", new Vector2(xPos, yPos)));
         PowerupComponent powerupComponent = new PowerupComponent(Constants.PowerupType.fromInt(type));
         RenderComponent renderComponent = new RenderComponent(0);
