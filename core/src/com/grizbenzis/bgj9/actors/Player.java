@@ -130,7 +130,7 @@ public class Player extends Actor {
     }
 
     private static Vector2 getStartPos(SpriteComponent spriteComponent) {
-        return new Vector2(GameBoardInfo.getInstance().getWidth() / 2, GameBoardInfo.getInstance().getWaterLevel() + (spriteComponent.sprite.getHeight() / 2) + 3f);
+        return new Vector2(GameBoardInfo.getInstance().getWidth() / 2, GameBoardInfo.getInstance().getWaterLevel() + (spriteComponent.sprite.getHeight() / 2) - 2f); // TODO: CAREFUL! HACK!
     }
 
 }

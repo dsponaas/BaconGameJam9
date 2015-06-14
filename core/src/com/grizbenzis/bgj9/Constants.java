@@ -15,6 +15,7 @@ public class Constants {
     public static float MIN_DETONATION_DEPTH_IN_PIXELS = 60;
     public static float FLOOR_DETONATION_BUFFER_IN_PIXELS = 60;
 
+    public static int NUM_LIVES = 2;
     public static final float LEVEL_TIME = 1200f;
     public static float BASE_ENEMY_SPAWN_TIMER = 300f;
     public static float LEVEL_ADVANCE_SPAWN_TIMER_MOD = 0.9f;
