@@ -15,7 +15,9 @@ public class ResourceManager {
     private static HashMap<String, Texture> _textures;
 
     private static TextureAtlas _subDestroyedAtlas;
-    private static Animation _subDesroyedAnimation;
+    private static Animation _subDestroyedAnimation;
+    private static TextureAtlas _sub2DestroyedAtlas;
+    private static Animation _sub2DestroyedAnimation;
 
     public static void initialize() {
         _textures = new HashMap<String, Texture>();
@@ -33,6 +35,7 @@ public class ResourceManager {
         _textures.put("garbypowerup", new Texture("garbypowerup.png"));
 
         createSubDestroyedAnimation();
+        createSub2DestroyedAnimation();
     }
 
     public static Texture getTexture(String name) {
@@ -59,8 +62,32 @@ public class ResourceManager {
                                                         frame7, frame8, frame9, frame10, frame11
                                                     };
 
-        _subDesroyedAnimation = new Animation(3f, frames);
+        _subDestroyedAnimation = new Animation(3f, frames);
     }
 
-    public static Animation getSubDestroyedAnimation() { return _subDesroyedAnimation; }
+    public static void createSub2DestroyedAnimation() {
+        _sub2DestroyedAtlas = new TextureAtlas("Sub2-Destroy.atlas");
+
+        TextureRegion frame1 = _sub2DestroyedAtlas.findRegion("sub2 destroyed 01");
+        TextureRegion frame2 = _sub2DestroyedAtlas.findRegion("sub2 destroyed 02");
+        TextureRegion frame3 = _sub2DestroyedAtlas.findRegion("sub2 destroyed 03");
+        TextureRegion frame4 = _sub2DestroyedAtlas.findRegion("sub2 destroyed 04");
+        TextureRegion frame5 = _sub2DestroyedAtlas.findRegion("sub2 destroyed 05");
+        TextureRegion frame6 = _sub2DestroyedAtlas.findRegion("sub2 destroyed 06");
+        TextureRegion frame7 = _sub2DestroyedAtlas.findRegion("sub2 destroyed 07");
+        TextureRegion frame8 = _sub2DestroyedAtlas.findRegion("sub2 destroyed 08");
+        TextureRegion frame9 = _sub2DestroyedAtlas.findRegion("sub2 destroyed 09");
+        TextureRegion frame10 = _sub2DestroyedAtlas.findRegion("sub2 destroyed 10");
+        TextureRegion frame11 = _sub2DestroyedAtlas.findRegion("sub2 destroyed 11");
+
+        TextureRegion[] frames = new TextureRegion[] {
+                frame1, frame2, frame3, frame4, frame5, frame6,
+                frame7, frame8, frame9, frame10, frame11
+        };
+
+        _sub2DestroyedAnimation = new Animation(3f, frames);
+    }
+
+    public static Animation getSubDestroyedAnimation() { return _subDestroyedAnimation; }
+    public static Animation getSub2DestroyedAnimation() { return _sub2DestroyedAnimation; }
 }
