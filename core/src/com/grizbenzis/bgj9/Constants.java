@@ -55,7 +55,7 @@ public class Constants {
 
     public static final float PLAYER_SHOOTING_VOLUME = 0.2f;
     public static final float EXPLOSION_VOLUME = 0.6f;
-    public static final float DEATH_VOLUME = 0.9f;
+    public static final float DEATH_VOLUME = 1f;
 
     public static final float POWERUP_TIMER = 600f;
     public static final float POWERUP_SPEED_ACCEL_FACTOR = 1.25f;
