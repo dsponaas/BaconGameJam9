@@ -36,7 +36,13 @@ public class ResourceManager {
         _textures.put("skybackground1", new Texture("skybackground1.png"));
         _textures.put("skybackground2", new Texture("skybackground2.png"));
         _textures.put("waterbackground1", new Texture("waterbackground1.png"));
-        _textures.put("garbypowerup", new Texture("garbypowerup.png"));
+        _textures.put("powerupspd", new Texture("powerupspeed.png"));
+        _textures.put("powerup1up", new Texture("powerup1up.png"));
+        _textures.put("poweruppoints", new Texture("poweruppoints.png"));
+        _textures.put("powerupexpl", new Texture("powerupexpl.png"));
+        _textures.put("powerupspdsmall", new Texture("powerupspeedsmall.png"));
+        _textures.put("poweruppointssmall", new Texture("poweruppointssmall.png"));
+        _textures.put("powerupexplsmall", new Texture("powerupexplsmall.png"));
 
         createSubDestroyedAnimation();
         createSub2DestroyedAnimation();

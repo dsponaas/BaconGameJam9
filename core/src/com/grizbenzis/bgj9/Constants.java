@@ -59,7 +59,8 @@ public class Constants {
     public enum PowerupType {
         POINTS_2X,
         SPEED_UP,
-        EXPLOSION_UP;
+        EXPLOSION_UP,
+        EXTRA_LIFE;
 
         public static PowerupType fromInt(int x) {
             switch(x) {
@@ -69,6 +70,8 @@ public class Constants {
                     return SPEED_UP;
                 case 2:
                     return EXPLOSION_UP;
+                case 3:
+                    return EXTRA_LIFE;
             }
             return null;
         }
