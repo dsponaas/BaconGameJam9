@@ -63,6 +63,7 @@ public class Player extends Actor {
         if(deathTimerComponent == null) {
             if(!_playerDataComponents.get(getEntity()).alive) {
                 getEntity().add(new DeathTimerComponent(Constants.DEATH_TIME));
+                getEntity().remove(RenderComponent.class); // TODO: we're actually probly wanna leave it there and adda fire or something but for now...
                 return;
             }
 
@@ -120,6 +121,7 @@ public class Player extends Actor {
         PlayerDataComponent playerDataComponent = _playerDataComponents.get(getEntity());
         playerDataComponent.invincibilityTime = Constants.INVINCIBILITY_TIME;
         playerDataComponent.alive = true;
+        getEntity().add(new RenderComponent(0));
         // TODO: stuff?
     }
 
