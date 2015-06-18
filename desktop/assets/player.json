@@ -4,7 +4,7 @@
     type: DynamicBody,
     gravityScale: 1,
     collisionType: PLAYER,
-    dimensionX: 100,
+    dimensionX: 80,
     dimensionY: 20
   },
   Fixtures : [
@@ -12,7 +12,7 @@
       description: none,
       isSensor: false,
       type: RectangleShape,
-      width: 100,
+      width: 80,
       height: 20,
       density: 1,
       friction: 1,
